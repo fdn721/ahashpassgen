@@ -1,0 +1,37 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:p="clr-namespace:AHashPassGen.Properties"
+        mc:Ignorable="d" d:DesignWidth="320" d:DesignHeight="240"
+        Title="{x:Static p:I18n.About}"
+        Width="500"
+        Height="300"
+        CanResize="False"
+        SizeToContent="WidthAndHeight"
+        WindowStartupLocation="CenterOwner"
+        Name="AboutWindow"
+        x:Class="AHashPassGen.Views.AboutView">
+    <Window.Styles>
+        <Style Selector="TextBlock.Header">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+        <Style Selector="TextBlock.Version">
+            <!--<Setter Property="FontSize" Value="18"/>-->
+        </Style>
+    </Window.Styles>
+    
+    <Grid ColumnDefinitions="*,auto" RowDefinitions="Auto,Auto" Margin="5,10,5,5">
+        <Image Grid.Row="0" Grid.Column="0" Width="48" Height="48"  Margin="10 10 10 0" VerticalAlignment="Center" Source="/Assets/logo.png"/>
+        <Grid  Grid.Row="0" Grid.Column="1" RowDefinitions="Auto,Auto,Auto" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock Classes="Header" HorizontalAlignment="Center" Margin="5" Text="{x:Static p:I18n.AHashPassGen}"></TextBlock>
+            <TextBlock Classes="Version" Grid.Row="1" HorizontalAlignment="Center" Margin="5" Text="{Binding Version}"></TextBlock>
+            <TextBlock Classes="Version" Grid.Row="2" HorizontalAlignment="Center" Margin="5" Text="{Binding CopyRight}"></TextBlock>
+        </Grid>
+        <Button Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" Margin="10" MinWidth="80" Command="{Binding CloseCommand}">
+            <TextBlock Text="{x:Static p:I18n.OK}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Button>
+    </Grid>
+
+</Window>

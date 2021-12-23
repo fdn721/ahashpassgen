@@ -1,0 +1,47 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Avalonia" Version="0.10.11" />
+      <PackageReference Include="Avalonia.Desktop" Version="0.10.11" />
+      <PackageReference Include="Avalonia.Diagnostics" Version="0.10.11" />
+      <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.11" />
+      <PackageReference Include="Avalonia.Svg.Skia" Version="0.10.11" />
+      <PackageReference Include="Avalonia.Xaml.Behaviors" Version="0.10.11.5" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Assets\error.svg" />
+      <AvaloniaResource Include="Assets\error.svg" />
+      <None Remove="Assets\warning.svg" />
+      <AvaloniaResource Include="Assets\warning.svg" />
+      <None Remove="Assets\question.svg" />
+      <AvaloniaResource Include="Assets\question.svg" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Assets\info.svg" />
+      <AvaloniaResource Include="Assets\info.svg" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Update="Properties\I18n.resx">
+        <Generator>PublicResXFileCodeGenerator</Generator>
+        <LastGenOutput>I18n.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="Properties\I18n.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>I18n.resx</DependentUpon>
+      </Compile>
+    </ItemGroup>
+
+</Project>

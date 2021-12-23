@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AHashPassGen", "AHashPassGen\AHashPassGen.csproj", "{5FA85F70-CF79-4016-9988-E22950551AC7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Avalonia.MessageBox", "Avalonia.MessageBox\Avalonia.MessageBox.csproj", "{9BBDEC81-7A29-4C88-AF68-2E2088A4B76F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{B9F6E8A1-D782-49DF-B8BE-4C2F286193DC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5FA85F70-CF79-4016-9988-E22950551AC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5FA85F70-CF79-4016-9988-E22950551AC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5FA85F70-CF79-4016-9988-E22950551AC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5FA85F70-CF79-4016-9988-E22950551AC7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9BBDEC81-7A29-4C88-AF68-2E2088A4B76F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9BBDEC81-7A29-4C88-AF68-2E2088A4B76F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9BBDEC81-7A29-4C88-AF68-2E2088A4B76F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9BBDEC81-7A29-4C88-AF68-2E2088A4B76F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9F6E8A1-D782-49DF-B8BE-4C2F286193DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9F6E8A1-D782-49DF-B8BE-4C2F286193DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9F6E8A1-D782-49DF-B8BE-4C2F286193DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9F6E8A1-D782-49DF-B8BE-4C2F286193DC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,36 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="200" d:DesignHeight="100"
+        MinWidth="200"
+        MaxWidth="1024"
+        MaxHeight="600"
+        CanResize="True"
+        WindowStartupLocation="CenterOwner"
+        Name="MessageBox"
+        SizeToContent="WidthAndHeight"
+        x:Class="Avalonia.MessageBox.MessageBoxView"
+        Title="Title">
+    <Grid Name="Grid" RowDefinitions="Auto,Auto,*" ColumnDefinitions="*">
+        <Grid Grid.Row="0" ColumnDefinitions="Auto,*">
+            <Image Width="48" Height="48" Name="Icon"  Margin="15 15 15 0" VerticalAlignment="Center"/>
+            <TextBlock Grid.Column="1" Name="Text"  Margin="0 15 15 0" HorizontalAlignment="Left" VerticalAlignment="Center" TextWrapping="Wrap" />
+        </Grid>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="15 5 15 15" Name="Buttons">
+            <StackPanel.Styles>
+                <Style Selector="Button">
+                    <Setter Property="Margin" Value="5"/>
+                    <Setter Property="MinWidth" Value="50"/>
+                </Style>
+            </StackPanel.Styles>
+        </StackPanel>
+        <TextBox  Grid.Row="2" IsVisible="False" IsReadOnly="True" Margin="5"
+                  VerticalAlignment="Stretch"
+                  HorizontalAlignment="Stretch"
+                  AcceptsReturn="True"
+                  TextWrapping="Wrap" 
+                  ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" Name="Details">
+        </TextBox>
+    </Grid>
+</Window>
