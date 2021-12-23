@@ -3,15 +3,33 @@
         xmlns:vm="using:AHashPassGen.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="clr-namespace:Avalonia.Xaml.Interactivity;assembly=Avalonia.Xaml.Interactivity"
+        xmlns:ia="clr-namespace:Avalonia.Xaml.Interactions.Core;assembly=Avalonia.Xaml.Interactions"
+        xmlns:p="clr-namespace:AHashPassGen.Properties"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="AHashPassGen.Views.MainWindow"
-        Icon="/Assets/avalonia-logo.ico"
-        Title="AHashPassGen">
+        Icon="/Assets/logo.png"
+        Title="{x:Static p:I18n.AHashPassGen}"
+        Name="MainWindow">
 
-    <Design.DataContext>
-        <vm:MainWindowViewModel/>
-    </Design.DataContext>
-
-    <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    <i:Interaction.Behaviors>
+        <ia:EventTriggerBehavior EventName="Closing" SourceObject="{Binding #MainWindow}">
+            <ia:InvokeCommandAction Command="{Binding ExitCommand}" PassEventArgsToCommand="True"/>
+        </ia:EventTriggerBehavior>
+    </i:Interaction.Behaviors>
+    
+    <Grid RowDefinitions="Auto,*,Auto" ColumnDefinitions="*">
+                <DockPanel Grid.Row="0" Grid.Column="0">
+                        <Menu DockPanel.Dock="Top">
+                                <MenuItem Header="{x:Static p:I18n.File}">
+                                        <MenuItem Header="{x:Static p:I18n.Exit}" Command="{Binding #MainWindow.CloseWindow}"/>
+                                </MenuItem>
+                                <MenuItem Header="{x:Static p:I18n.Help}">
+                                        <MenuItem Header="{x:Static p:I18n.About}" Command="{Binding AboutCommand}"/>
+                                </MenuItem>
+                        </Menu>
+                </DockPanel>
+           
+        </Grid>
 
 </Window>

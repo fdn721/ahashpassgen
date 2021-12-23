@@ -19,7 +19,7 @@ namespace AHashPassGen.Views
         
         public void CloseWindow()
         {
-            Close( null );
+            Close( false );
         }
 
         private void InitializeComponent()

@@ -80,5 +80,23 @@ namespace AHashPassGen.Properties {
                 return ResourceManager.GetString("OK", resourceCulture);
             }
         }
+        
+        public static string File {
+            get {
+                return ResourceManager.GetString("File", resourceCulture);
+            }
+        }
+        
+        public static string Exit {
+            get {
+                return ResourceManager.GetString("Exit", resourceCulture);
+            }
+        }
+        
+        public static string Help {
+            get {
+                return ResourceManager.GetString("Help", resourceCulture);
+            }
+        }
     }
 }

@@ -36,4 +36,13 @@
     <data name="OK" xml:space="preserve">
         <value>OK</value>
     </data>
+    <data name="File" xml:space="preserve">
+        <value>File</value>
+    </data>
+    <data name="Exit" xml:space="preserve">
+        <value>Exit</value>
+    </data>
+    <data name="Help" xml:space="preserve">
+        <value>Help</value>
+    </data>
 </root>
