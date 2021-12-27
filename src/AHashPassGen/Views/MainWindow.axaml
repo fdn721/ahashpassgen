@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:i="clr-namespace:Avalonia.Xaml.Interactivity;assembly=Avalonia.Xaml.Interactivity"
         xmlns:ia="clr-namespace:Avalonia.Xaml.Interactions.Core;assembly=Avalonia.Xaml.Interactions"
+        xmlns:model="clr-namespace:AHashPassGen.Models.Data"
         xmlns:p="clr-namespace:AHashPassGen.Properties"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="AHashPassGen.Views.MainWindow"
@@ -18,18 +19,45 @@
         </ia:EventTriggerBehavior>
     </i:Interaction.Behaviors>
     
+    <Window.DataTemplates>
+        <DataTemplate DataType="{x:Type model:Record}">
+            <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <!-- <c:SpellTextBlock Classes="h2" Text="{Binding Text }" /> -->
+                    <TextBlock Classes="h2" Text="{Binding Site }"/>
+                    <TextBlock Classes="h2" Text=" / "/>
+                    <TextBlock Classes="h2" Text="{Binding User }"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Classes="h2" Text="{Binding Comment }"/>
+                </StackPanel>
+            </StackPanel>
+        </DataTemplate>
+    </Window.DataTemplates>
+    
     <Grid RowDefinitions="Auto,*,Auto" ColumnDefinitions="*">
-                <DockPanel Grid.Row="0" Grid.Column="0">
-                        <Menu DockPanel.Dock="Top">
-                                <MenuItem Header="{x:Static p:I18n.File}">
-                                        <MenuItem Header="{x:Static p:I18n.Exit}" Command="{Binding #MainWindow.CloseWindow}"/>
-                                </MenuItem>
-                                <MenuItem Header="{x:Static p:I18n.Help}">
-                                        <MenuItem Header="{x:Static p:I18n.About}" Command="{Binding AboutCommand}"/>
-                                </MenuItem>
-                        </Menu>
-                </DockPanel>
-           
-        </Grid>
+        <DockPanel Grid.Row="0" Grid.Column="0">
+            <Menu DockPanel.Dock="Top">
+                <MenuItem Header="{x:Static p:I18n.File}">
+                    <MenuItem Header="{x:Static p:I18n.Exit}" Command="{Binding #MainWindow.CloseWindow}"/>
+                </MenuItem>
+                <MenuItem Header="{x:Static p:I18n.Help}">
+                    <MenuItem Header="{x:Static p:I18n.About}" Command="{Binding AboutCommand}"/>
+                </MenuItem>
+            </Menu>
+        </DockPanel>
+        <ListBox Grid.Row="1" Grid.Column="0" Name="RecordList" Items="{Binding RecordList}">
+            <ListBox.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="{x:Static p:I18n.Add}" Command="{Binding AddCommand}"></MenuItem>
+                    <MenuItem Header="{x:Static p:I18n.Edit}" Command="{Binding EditCommand}" CommandParameter="{Binding ElementName=RecordList,Path=SelectedItem}"></MenuItem>
+                    <MenuItem Header="{x:Static p:I18n.Remove}" Command="{Binding RemoveCommand}" CommandParameter="{Binding ElementName=RecordList,Path=SelectedItem}"></MenuItem>
+                    <Separator></Separator>
+                    <MenuItem Header="{x:Static p:I18n.MoveUp}" Command="{Binding UpCommand}" CommandParameter="{Binding ElementName=RecordList,Path=SelectedItem}"></MenuItem>
+                    <MenuItem Header="{x:Static p:I18n.MoveDown}" Command="{Binding DownCommand}" CommandParameter="{Binding ElementName=RecordList,Path=SelectedItem}"></MenuItem>
+                </ContextMenu>
+            </ListBox.ContextMenu>
+        </ListBox>
+    </Grid>
 
 </Window>

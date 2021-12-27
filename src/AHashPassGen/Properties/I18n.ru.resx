@@ -38,4 +38,19 @@
     <data name="Help" xml:space="preserve">
         <value>Справка</value>
     </data>
+    <data name="Add" xml:space="preserve">
+        <value>Добавить</value>
+    </data>
+    <data name="Edit" xml:space="preserve">
+        <value>Изменить</value>
+    </data>
+    <data name="Remove" xml:space="preserve">
+        <value>Удалить</value>
+    </data>
+    <data name="MoveUp" xml:space="preserve">
+        <value>Поднять вверх</value>
+    </data>
+    <data name="MoveDown" xml:space="preserve">
+        <value>Опустить вних</value>
+    </data>
 </root>

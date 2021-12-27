@@ -7,7 +7,7 @@ using ReactiveUI;
 
 namespace AHashPassGen.Views
 {
-    public partial class MainWindow :  ReactiveWindow< MainWindowViewModel >
+    public partial class MainWindow : ReactiveWindow< MainWindowViewModel >
     {
         public MainWindow()
         {

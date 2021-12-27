@@ -45,4 +45,19 @@
     <data name="Help" xml:space="preserve">
         <value>Help</value>
     </data>
+    <data name="Add" xml:space="preserve">
+        <value>Add</value>
+    </data>
+    <data name="Edit" xml:space="preserve">
+        <value>Edit</value>
+    </data>
+    <data name="Remove" xml:space="preserve">
+        <value>Remove</value>
+    </data>
+    <data name="MoveUp" xml:space="preserve">
+        <value>Move up</value>
+    </data>
+    <data name="MoveDown" xml:space="preserve">
+        <value>Move down</value>
+    </data>
 </root>
