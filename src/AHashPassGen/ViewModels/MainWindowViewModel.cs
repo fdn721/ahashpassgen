@@ -57,41 +57,77 @@ namespace AHashPassGen.ViewModels
             AboutCommand = ReactiveCommand.Create( AboutHandler );
             
             AddCommand = ReactiveCommand.Create( AddHandler );
-            EditCommand = ReactiveCommand.Create< Record >( EditHandler );
-            RemoveCommand = ReactiveCommand.Create< Record >( RemoveHandler );
-            UpCommand = ReactiveCommand.Create< Record >( UpHandler );
-            DownCommand = ReactiveCommand.Create< Record >( DownHandler );
+            EditCommand = ReactiveCommand.Create< Record >( EditHandler, this.WhenAny( x => x.SelectedRecord, _ => SelectedRecord != null ) );
+            RemoveCommand = ReactiveCommand.Create< Record >( RemoveHandler, this.WhenAny( x => x.SelectedRecord, _ => SelectedRecord != null ) );
+            UpCommand = ReactiveCommand.Create< Record >( UpHandler, this.WhenAny( x => x.SelectedRecord, _ => SelectedRecord != null ) );
+            DownCommand = ReactiveCommand.Create< Record >( DownHandler, this.WhenAny( x => x.SelectedRecord, _ => SelectedRecord != null ) );
             
             _recordList.ToObservableChangeSet()
-                .AutoRefreshOnObservable( _ => this.WhenAnyValue( x => x.Filter ) )
-                .Filter( x => true )
+                //.AutoRefreshOnObservable( _ => this.WhenAnyValue( x => x.Filter ) 
+                //.Filter( x => true )
                 .Bind( out _filteredRecordList )
                 .Subscribe( /*_ => WordCount = $"({_wordListItems.Count})" */);
         }
 
-         private void AddHandler()
+         private async void AddHandler()
          {
-          //   throw new NotImplementedException();
+             var vm = new EditRecordViewModel( null );
+             var record = await _dialogService.Show<EditRecordViewModel, Record >( vm );
+
+             if( record != null )
+                 _recordList.Add( record );
+         }
+        
+         
+         private async void EditHandler( Record? record )
+         {
+             if( record == null )
+                 return;
+             
+             var vm = new EditRecordViewModel( record );
+             var newRecord = await _dialogService.Show<EditRecordViewModel, Record >( vm );
+
+             if( newRecord != null )
+                 _recordList.Replace( record, newRecord );
          }
          
-         private void EditHandler( Record? record )
+         private async void RemoveHandler( Record? record )
          {
-             throw new NotImplementedException();
-         }
-         
-         private void RemoveHandler( Record? record )
-         {
-             throw new NotImplementedException();
+             if( record == null )
+                 return;
+            
+             var result = await _dialogService.Question( I18n.Remove, $"{I18n.RemoveRecord} {record.Site}/{record.Login}?" );
+
+             if( result != MessageBoxResult.Yes )
+                 return;
+            
+             _recordList.Remove( record );
          }
          
          private void UpHandler( Record? record )
          {
-             throw new NotImplementedException();
+             if( record == null )
+                 return;
+             
+             var index = _recordList.IndexOf( record );
+
+             if( index <= 0 )
+                 return;
+                
+             _recordList.Move( index, index - 1 );;
          }
          
          private void DownHandler( Record? record )
          {
-             throw new NotImplementedException();
+             if( record == null )
+                 return;
+             
+             var index = _recordList.IndexOf( record );
+
+             if( index >=  ( _recordList.Count - 1 ) )
+                 return;
+                
+             _recordList.Move( index, index + 1 );
          }
 
          private async void ExitHandler( CancelEventArgs arg)

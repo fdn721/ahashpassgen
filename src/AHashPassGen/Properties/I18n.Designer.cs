@@ -128,5 +128,65 @@ namespace AHashPassGen.Properties {
                 return ResourceManager.GetString("MoveDown", resourceCulture);
             }
         }
+        
+        public static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        public static string AddRecord {
+            get {
+                return ResourceManager.GetString("AddRecord", resourceCulture);
+            }
+        }
+        
+        public static string EditRecord {
+            get {
+                return ResourceManager.GetString("EditRecord", resourceCulture);
+            }
+        }
+        
+        public static string Site {
+            get {
+                return ResourceManager.GetString("Site", resourceCulture);
+            }
+        }
+        
+        public static string Login {
+            get {
+                return ResourceManager.GetString("Login", resourceCulture);
+            }
+        }
+        
+        public static string Comment {
+            get {
+                return ResourceManager.GetString("Comment", resourceCulture);
+            }
+        }
+        
+        public static string Alphabet {
+            get {
+                return ResourceManager.GetString("Alphabet", resourceCulture);
+            }
+        }
+        
+        public static string Length {
+            get {
+                return ResourceManager.GetString("Length", resourceCulture);
+            }
+        }
+        
+        public static string StageCount {
+            get {
+                return ResourceManager.GetString("StageCount", resourceCulture);
+            }
+        }
+        
+        public static string RemoveRecord {
+            get {
+                return ResourceManager.GetString("RemoveRecord", resourceCulture);
+            }
+        }
     }
 }

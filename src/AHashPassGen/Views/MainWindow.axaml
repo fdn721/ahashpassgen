@@ -26,7 +26,7 @@
                     <!-- <c:SpellTextBlock Classes="h2" Text="{Binding Text }" /> -->
                     <TextBlock Classes="h2" Text="{Binding Site }"/>
                     <TextBlock Classes="h2" Text=" / "/>
-                    <TextBlock Classes="h2" Text="{Binding User }"/>
+                    <TextBlock Classes="h2" Text="{Binding Login }"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Classes="h2" Text="{Binding Comment }"/>
@@ -46,7 +46,7 @@
                 </MenuItem>
             </Menu>
         </DockPanel>
-        <ListBox Grid.Row="1" Grid.Column="0" Name="RecordList" Items="{Binding RecordList}">
+        <ListBox Grid.Row="1" Grid.Column="0" Name="RecordList" Items="{Binding RecordList}"  SelectedItem="{Binding SelectedRecord, Mode=TwoWay}">
             <ListBox.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="{x:Static p:I18n.Add}" Command="{Binding AddCommand}"></MenuItem>

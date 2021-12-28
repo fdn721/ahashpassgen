@@ -53,4 +53,34 @@
     <data name="MoveDown" xml:space="preserve">
         <value>Опустить вних</value>
     </data>
+    <data name="Cancel" xml:space="preserve">
+        <value>Отмена</value>
+    </data>
+    <data name="AddRecord" xml:space="preserve">
+        <value>Добавить запись</value>
+    </data>
+    <data name="EditRecord" xml:space="preserve">
+        <value>Изменить запись</value>
+    </data>
+    <data name="Site" xml:space="preserve">
+        <value>Сайт</value>
+    </data>
+    <data name="Login" xml:space="preserve">
+        <value>Логин</value>
+    </data>
+    <data name="Alphabet" xml:space="preserve">
+        <value>Алфавит</value>
+    </data>
+    <data name="Comment" xml:space="preserve">
+        <value>Клмментарий</value>
+    </data>
+    <data name="Length" xml:space="preserve">
+        <value>Длина</value>
+    </data>
+    <data name="StageCount" xml:space="preserve">
+        <value>Количество проходов</value>
+    </data>
+    <data name="RemoveRecord" xml:space="preserve">
+        <value>Удалить запись</value>
+    </data>
 </root>

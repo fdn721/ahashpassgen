@@ -1,0 +1,46 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:p="clr-namespace:AHashPassGen.Properties"
+        xmlns:conv="clr-namespace:Common.Converters;assembly=Common"
+        xmlns:c="clr-namespace:AHashPassGen.Views"
+        mc:Ignorable="d" d:DesignWidth="300" d:DesignHeight="300"
+        Title="{x:Static p:I18n.EditRecord}"
+        Width="300"
+        Height="300"
+        SizeToContent="Height"
+        WindowStartupLocation="CenterOwner"
+        x:Class="AHashPassGen.Views.EditRecordView">
+    
+    <Window.Resources>
+        <conv:EnumToIndexConverter x:Key="EnumToIndexConverter"/>
+    </Window.Resources>
+    
+    <Grid  RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto"  Margin="4">
+        <TextBlock Grid.Row="0" Margin="5, 5, 5, 0" Text="{x:Static p:I18n.Site}"/>
+        <TextBox Grid.Row="1" Margin="5" Text="{ Binding Site }"/>
+        <TextBlock Grid.Row="2" Margin="5, 5, 5, 0" Text="{x:Static p:I18n.Login}"/>
+        <TextBox Grid.Row="3" Margin="5" Text="{ Binding Login }"/>
+        <TextBlock Grid.Row="4" Margin="5, 5, 5, 0" Text="{x:Static p:I18n.Comment}"/>
+        <TextBox Grid.Row="5" Margin="5" Text="{ Binding Comment }"/>
+        <TextBlock Grid.Row="6" Margin="5, 5, 5, 0" Text="{x:Static p:I18n.Alphabet}"/>
+        <ComboBox Grid.Row="7" Margin="5"  SelectedIndex="{Binding Alphabet, Converter={StaticResource EnumToIndexConverter}}" HorizontalAlignment="Stretch">
+            <ComboBoxItem Content="10 (0-9)"></ComboBoxItem>   
+            <ComboBoxItem Content="16 (0-9,a-f)"></ComboBoxItem>
+            <ComboBoxItem Content="36 (0-9,a-z)"></ComboBoxItem>
+            <ComboBoxItem Content="62 (0-9,a-z,A-Z)"></ComboBoxItem> 
+            <ComboBoxItem Content="64 (0-9,a-z,A-Z,-,=)"></ComboBoxItem>
+            <ComboBoxItem Content="72 (0-9,a-z,A-Z,!-=)"></ComboBoxItem>
+        </ComboBox>
+        <TextBlock Grid.Row="8" Margin="5, 5, 5, 0" Text="{x:Static p:I18n.Length}"/>
+        <NumericUpDown Grid.Row="9" Margin="5" Value="{ Binding Length }" Minimum="8" Maximum="32" HorizontalAlignment="Stretch"/>
+        <TextBlock Grid.Row="10" Margin="5, 5, 5, 0" Text="{x:Static p:I18n.StageCount}" />
+        <NumericUpDown Grid.Row="11" Margin="5" Value="{ Binding StageCount }" Minimum="1" Maximum="1000" HorizontalAlignment="Stretch"/>
+        <StackPanel Grid.Row="12" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Content="{x:Static p:I18n.Add}" Margin="5,5,0,5" MinWidth="80" Command="{Binding ApplyCommand}" IsVisible="{Binding !EditMode }"></Button>
+            <Button Content="{x:Static p:I18n.Edit}" Margin="5,5,0,5" MinWidth="80" Command="{Binding ApplyCommand}" IsVisible="{Binding EditMode }"></Button>
+            <Button Content="{x:Static p:I18n.Cancel}" Margin="5" MinWidth="80" Command="{Binding CloseCommand}"></Button>
+        </StackPanel>
+    </Grid>
+</Window>
