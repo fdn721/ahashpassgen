@@ -1,4 +1,5 @@
 using AHashPassGen.Models.Settings;
+using AHashPassGen.Services;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
@@ -26,6 +27,7 @@ namespace AHashPassGen
             
             Locator.CurrentMutable.Register(() => new EditRecordView(), typeof(IViewFor<EditRecordViewModel>));
             Locator.CurrentMutable.Register(() => new AboutView(), typeof(IViewFor<AboutViewModel>));
+            Locator.CurrentMutable.RegisterConstant( new PassGenService(), typeof( IPassGenService ) );
             Locator.CurrentMutable.RegisterConstant( new SettingsService< AppSettings >(), typeof( ISettingsService< AppSettings > ) );
             Locator.CurrentMutable.RegisterConstant( new DialogService(), typeof( IDialogService ) );
             

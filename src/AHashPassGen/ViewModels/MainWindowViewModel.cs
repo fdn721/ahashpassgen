@@ -7,6 +7,7 @@ using System.Text;
 using AHashPassGen.Models.Data;
 using AHashPassGen.Models.Settings;
 using AHashPassGen.Properties;
+using AHashPassGen.Services;
 using Avalonia.MessageBox;
 using Common.Services.Dialog;
 using Common.Services.Settings;
@@ -31,6 +32,8 @@ namespace AHashPassGen.ViewModels
         public ReactiveCommand< Record, Unit > RemoveCommand { get; }
         public ReactiveCommand< Record, Unit > UpCommand { get; }
         public ReactiveCommand< Record, Unit > DownCommand { get; }
+        public ReactiveCommand< Record, Unit > GenerateCommand { get; }
+        
         // ReSharper restore UnusedAutoPropertyAccessor.Global
         // ReSharper restore MemberCanBePrivate.Global
         
@@ -39,15 +42,18 @@ namespace AHashPassGen.ViewModels
         [Reactive] public Record? SelectedRecord { get; set; }
         
         private bool _forceClose;
+        private readonly IPassGenService _passGenService;
         private readonly IDialogService _dialogService;
         private readonly ISettingsService< AppSettings > _settingsService;
         private readonly ObservableCollectionExtended<Record> _recordList = new ObservableCollectionExtended<Record>();
         private readonly ReadOnlyObservableCollection<Record> _filteredRecordList;
         
-         public MainWindowViewModel( IDialogService? dialogService = null,
-                                    ISettingsService< AppSettings >? settingsService = null )
+         public MainWindowViewModel( IDialogService? dialogService = null, 
+                                     IPassGenService? passGenService = null,
+                                     ISettingsService< AppSettings >? settingsService = null )
         {
             _dialogService = dialogService ?? Locator.Current.GetService< IDialogService >() ?? throw new ArgumentNullException( nameof( dialogService ) );
+            _passGenService = passGenService ?? Locator.Current.GetService< IPassGenService >() ?? throw new ArgumentNullException( nameof( passGenService ) );
             _settingsService = settingsService ?? Locator.Current.GetService< ISettingsService< AppSettings > >() ?? throw new ArgumentNullException( nameof( settingsService ) );
 
             _settingsService.Load();
@@ -61,6 +67,7 @@ namespace AHashPassGen.ViewModels
             RemoveCommand = ReactiveCommand.Create< Record >( RemoveHandler, this.WhenAny( x => x.SelectedRecord, _ => SelectedRecord != null ) );
             UpCommand = ReactiveCommand.Create< Record >( UpHandler, this.WhenAny( x => x.SelectedRecord, _ => SelectedRecord != null ) );
             DownCommand = ReactiveCommand.Create< Record >( DownHandler, this.WhenAny( x => x.SelectedRecord, _ => SelectedRecord != null ) );
+            GenerateCommand = ReactiveCommand.Create< Record >( GenerateHandler, this.WhenAny( x => x.SelectedRecord, _ => SelectedRecord != null ) );
             
             _recordList.ToObservableChangeSet()
                 //.AutoRefreshOnObservable( _ => this.WhenAnyValue( x => x.Filter ) 
@@ -128,6 +135,16 @@ namespace AHashPassGen.ViewModels
                  return;
                 
              _recordList.Move( index, index + 1 );
+         }
+         
+         private void GenerateHandler( Record? record )
+         {
+             if( record == null )
+                 return;
+
+
+             var password = _passGenService.Generate( record );
+             
          }
 
          private async void ExitHandler( CancelEventArgs arg)
