@@ -25,7 +25,7 @@ public class EditRecordViewModel : ReactiveObject
 
     public event Action<Record?>? CloseEvent;
 
-    private Record _record { set; get; }
+    private Record _record;
     private readonly IDialogService _dialogService;
     
     public EditRecordViewModel( Record? record, IDialogService? dialogService = null )

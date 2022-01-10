@@ -5,13 +5,13 @@ using AHashPassGen.Models.Data;
 
 namespace AHashPassGen.Services;
 
-public class PassGenService : IPassGenService
+public class PasswordService : IPasswordService
 {
-    public string MasterPassword { get; set; }
+    public string MasterPassword { get; set; } = "";
 
     private readonly byte[] _alphabet = new byte[74];
 
-    public PassGenService()
+    public PasswordService()
     {
         BuildAlphabet();
     }

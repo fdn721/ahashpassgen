@@ -10,10 +10,11 @@ using ReactiveUI;
 
 namespace AHashPassGen.Views
 {
-    public class AboutView : ReactiveWindow< AboutViewModel >
+    public class EditRecordView : ReactiveWindow< EditRecordViewModel >
     {
         private bool _once = true;
-        public AboutView()
+        
+        public EditRecordView()
         {
             InitializeComponent();
             
@@ -32,6 +33,7 @@ namespace AHashPassGen.Views
                 }
             };
         }
+
         private void InitializeComponent()
         {
             this.WhenActivated( disposables =>

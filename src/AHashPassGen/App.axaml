@@ -10,5 +10,25 @@
         <Style Selector=":is(TemplatedControl)">
             <Setter Property="FontSize" Value="{Binding Source={x:Static local:App.FontSize } }" />
         </Style>
+        <Style Selector="Border.Control">
+            <!--<Setter Property="Padding" Value="{DynamicResource TextControlThemePadding}"/>   -->
+            <Setter Property="BorderBrush" Value="{DynamicResource TextControlBorderBrush}"/>
+            <Setter Property="BorderThickness" Value="{DynamicResource TextControlBorderThemeThickness}"/>
+            <Setter Property="CornerRadius" Value="{DynamicResource ControlCornerRadius}"/>
+        </Style>
+        <Style Selector="ListBox">
+            <Setter Property="Background" Value="{DynamicResource TextControlBackground}"/>
+            <Setter Property="FontSize" Value="{Binding Source={x:Static local:App.FontSize } }" />
+        </Style>
+        <Style Selector="TextBlock.H1">
+            <Setter Property="FontSize" Value="{Binding Source={x:Static local:App.FontSizeH1 } }" />
+        </Style>
+        <Style Selector="TextBlock.H2">
+            <Setter Property="FontSize" Value="{Binding Source={x:Static local:App.FontSizeH2 } }" />
+        </Style>
+        <Style Selector="TextBlock.H3">
+            <Setter Property="FontSize" Value="{Binding Source={x:Static local:App.FontSizeH3 } }" />
+        </Style>
+
     </Application.Styles>
 </Application>

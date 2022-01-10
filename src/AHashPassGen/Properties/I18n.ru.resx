@@ -83,4 +83,22 @@
     <data name="RemoveRecord" xml:space="preserve">
         <value>Удалить запись</value>
     </data>
+    <data name="Generate" xml:space="preserve">
+        <value>Сгенерировать</value>
+    </data>
+    <data name="Password" xml:space="preserve">
+        <value>Пароль</value>
+    </data>
+    <data name="Close" xml:space="preserve">
+        <value>Закрыть</value>
+    </data>
+    <data name="Copy" xml:space="preserve">
+        <value>Копировать</value>
+    </data>
+    <data name="Show" xml:space="preserve">
+        <value>Показать</value>
+    </data>
+    <data name="PasswordGenerated" xml:space="preserve">
+        <value>Пароль сгенерирован!</value>
+    </data>
 </root>

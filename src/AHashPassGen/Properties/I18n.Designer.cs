@@ -188,5 +188,41 @@ namespace AHashPassGen.Properties {
                 return ResourceManager.GetString("RemoveRecord", resourceCulture);
             }
         }
+        
+        public static string Generate {
+            get {
+                return ResourceManager.GetString("Generate", resourceCulture);
+            }
+        }
+        
+        public static string Password {
+            get {
+                return ResourceManager.GetString("Password", resourceCulture);
+            }
+        }
+        
+        public static string Close {
+            get {
+                return ResourceManager.GetString("Close", resourceCulture);
+            }
+        }
+        
+        public static string Copy {
+            get {
+                return ResourceManager.GetString("Copy", resourceCulture);
+            }
+        }
+        
+        public static string Show {
+            get {
+                return ResourceManager.GetString("Show", resourceCulture);
+            }
+        }
+        
+        public static string PasswordGenerated {
+            get {
+                return ResourceManager.GetString("PasswordGenerated", resourceCulture);
+            }
+        }
     }
 }

@@ -10,11 +10,11 @@ using ReactiveUI;
 
 namespace AHashPassGen.Views
 {
-    public class EditRecordView : ReactiveWindow< EditRecordViewModel >
+    public class PasswordView :  ReactiveWindow< PasswordViewModel >
     {
         private bool _once = true;
         
-        public EditRecordView()
+        public PasswordView()
         {
             InitializeComponent();
             
@@ -24,10 +24,18 @@ namespace AHashPassGen.Views
                 if( _once && OperatingSystem.IsLinux() )
                 {
                     _once = false;
-                    var mainWindows = ( ( IClassicDesktopStyleApplicationLifetime ) Application.Current.ApplicationLifetime ).MainWindow; 
-                    SetWindowStartupLocation( mainWindows.PlatformImpl );
+                    if( Application.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime appLifeTime )
+                    {
+                        var mainWindow = appLifeTime.MainWindow;
+                        if( mainWindow != null )
+                            SetWindowStartupLocation( mainWindow.PlatformImpl );
+                    }
                 }
             };
+            
+#if DEBUG
+            this.AttachDevTools();
+#endif
         }
 
         private void InitializeComponent()

@@ -7,7 +7,8 @@
         xmlns:ia="clr-namespace:Avalonia.Xaml.Interactions.Core;assembly=Avalonia.Xaml.Interactions"
         xmlns:model="clr-namespace:AHashPassGen.Models.Data"
         xmlns:p="clr-namespace:AHashPassGen.Properties"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="660"
+        Width="400" Height="600"
         x:Class="AHashPassGen.Views.MainWindow"
         Icon="/Assets/logo.png"
         Title="{x:Static p:I18n.AHashPassGen}"
@@ -17,6 +18,9 @@
         <ia:EventTriggerBehavior EventName="Closing" SourceObject="{Binding #MainWindow}">
             <ia:InvokeCommandAction Command="{Binding ExitCommand}" PassEventArgsToCommand="True"/>
         </ia:EventTriggerBehavior>
+        <ia:EventTriggerBehavior EventName="DoubleTapped" SourceObject="{Binding #RecordList}">
+                <ia:InvokeCommandAction Command="{Binding GenerateCommand}" CommandParameter="{Binding ElementName=RecordList,Path=SelectedItem}" />
+            </ia:EventTriggerBehavior>
     </i:Interaction.Behaviors>
     
     <Window.DataTemplates>
@@ -46,18 +50,22 @@
                 </MenuItem>
             </Menu>
         </DockPanel>
-        <ListBox Grid.Row="1" Grid.Column="0" Name="RecordList" Items="{Binding RecordList}"  SelectedItem="{Binding SelectedRecord, Mode=TwoWay}">
-            <ListBox.ContextMenu>
-                <ContextMenu>
-                    <MenuItem Header="{x:Static p:I18n.Add}" Command="{Binding AddCommand}"></MenuItem>
-                    <MenuItem Header="{x:Static p:I18n.Edit}" Command="{Binding EditCommand}" CommandParameter="{Binding ElementName=RecordList,Path=SelectedItem}"></MenuItem>
-                    <MenuItem Header="{x:Static p:I18n.Remove}" Command="{Binding RemoveCommand}" CommandParameter="{Binding ElementName=RecordList,Path=SelectedItem}"></MenuItem>
-                    <Separator></Separator>
-                    <MenuItem Header="{x:Static p:I18n.MoveUp}" Command="{Binding UpCommand}" CommandParameter="{Binding ElementName=RecordList,Path=SelectedItem}"></MenuItem>
-                    <MenuItem Header="{x:Static p:I18n.MoveDown}" Command="{Binding DownCommand}" CommandParameter="{Binding ElementName=RecordList,Path=SelectedItem}"></MenuItem>
-                </ContextMenu>
-            </ListBox.ContextMenu>
-        </ListBox>
+        <Border Grid.Row="1" Grid.Column="0" Classes="Control" Padding="5" Margin="5">
+            <ListBox Name="RecordList" Items="{Binding RecordList}"  SelectedItem="{Binding SelectedRecord, Mode=TwoWay}">
+                <ListBox.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="{x:Static p:I18n.Generate}" Command="{Binding GenerateCommand}" CommandParameter="{Binding ElementName=RecordList,Path=SelectedItem}"></MenuItem>
+                        <Separator></Separator>
+                        <MenuItem Header="{x:Static p:I18n.Add}" Command="{Binding AddCommand}"></MenuItem>
+                        <MenuItem Header="{x:Static p:I18n.Edit}" Command="{Binding EditCommand}" CommandParameter="{Binding ElementName=RecordList,Path=SelectedItem}"></MenuItem>
+                        <MenuItem Header="{x:Static p:I18n.Remove}" Command="{Binding RemoveCommand}" CommandParameter="{Binding ElementName=RecordList,Path=SelectedItem}"></MenuItem>
+                        <Separator></Separator>
+                        <MenuItem Header="{x:Static p:I18n.MoveUp}" Command="{Binding UpCommand}" CommandParameter="{Binding ElementName=RecordList,Path=SelectedItem}"></MenuItem>
+                        <MenuItem Header="{x:Static p:I18n.MoveDown}" Command="{Binding DownCommand}" CommandParameter="{Binding ElementName=RecordList,Path=SelectedItem}"></MenuItem>
+                    </ContextMenu>
+                </ListBox.ContextMenu>
+            </ListBox>
+        </Border>
     </Grid>
 
 </Window>

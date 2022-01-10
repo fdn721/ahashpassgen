@@ -16,6 +16,9 @@ namespace AHashPassGen
     public class App : Application
     {
         public static double FontSize  =>  GetFontSize();
+        public static double FontSizeH3  =>  GetFontSize() + 1;
+        public static double FontSizeH2  =>  GetFontSize() + 2;
+        public static double FontSizeH1  =>  GetFontSize() + 3;
         
         public override void Initialize()
         {
@@ -25,13 +28,14 @@ namespace AHashPassGen
         public override void OnFrameworkInitializationCompleted()
         {
             
-            Locator.CurrentMutable.Register(() => new EditRecordView(), typeof(IViewFor<EditRecordViewModel>));
-            Locator.CurrentMutable.Register(() => new AboutView(), typeof(IViewFor<AboutViewModel>));
-            Locator.CurrentMutable.RegisterConstant( new PassGenService(), typeof( IPassGenService ) );
+            Locator.CurrentMutable.Register( () => new EditRecordView(), typeof( IViewFor<EditRecordViewModel> ) );
+            Locator.CurrentMutable.Register( () => new AboutView(), typeof( IViewFor<AboutViewModel> ) );
+            Locator.CurrentMutable.Register( () => new PasswordView(), typeof( IViewFor<PasswordViewModel> ) );
+            Locator.CurrentMutable.RegisterConstant( new PasswordService(), typeof( IPasswordService ) );
             Locator.CurrentMutable.RegisterConstant( new SettingsService< AppSettings >(), typeof( ISettingsService< AppSettings > ) );
             Locator.CurrentMutable.RegisterConstant( new DialogService(), typeof( IDialogService ) );
             
-            if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+            if( ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop )
             {
                 desktop.MainWindow = new MainWindow
                 {

@@ -42,18 +42,18 @@ namespace AHashPassGen.ViewModels
         [Reactive] public Record? SelectedRecord { get; set; }
         
         private bool _forceClose;
-        private readonly IPassGenService _passGenService;
+        private readonly IPasswordService _passwordService;
         private readonly IDialogService _dialogService;
         private readonly ISettingsService< AppSettings > _settingsService;
         private readonly ObservableCollectionExtended<Record> _recordList = new ObservableCollectionExtended<Record>();
         private readonly ReadOnlyObservableCollection<Record> _filteredRecordList;
         
          public MainWindowViewModel( IDialogService? dialogService = null, 
-                                     IPassGenService? passGenService = null,
+                                     IPasswordService? passwordService = null,
                                      ISettingsService< AppSettings >? settingsService = null )
         {
             _dialogService = dialogService ?? Locator.Current.GetService< IDialogService >() ?? throw new ArgumentNullException( nameof( dialogService ) );
-            _passGenService = passGenService ?? Locator.Current.GetService< IPassGenService >() ?? throw new ArgumentNullException( nameof( passGenService ) );
+            _passwordService = passwordService ?? Locator.Current.GetService< IPasswordService >() ?? throw new ArgumentNullException( nameof( passwordService ) );
             _settingsService = settingsService ?? Locator.Current.GetService< ISettingsService< AppSettings > >() ?? throw new ArgumentNullException( nameof( settingsService ) );
 
             _settingsService.Load();
@@ -141,10 +141,13 @@ namespace AHashPassGen.ViewModels
          {
              if( record == null )
                  return;
-
-
-             var password = _passGenService.Generate( record );
              
+             var password = _passwordService.Generate( record );
+
+             var vm = new PasswordViewModel( password );
+
+             _dialogService.Show( vm );
+
          }
 
          private async void ExitHandler( CancelEventArgs arg)

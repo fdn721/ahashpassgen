@@ -90,4 +90,22 @@
     <data name="RemoveRecord" xml:space="preserve">
         <value>Remove record</value>
     </data>
+    <data name="Generate" xml:space="preserve">
+        <value>Generate</value>
+    </data>
+    <data name="Password" xml:space="preserve">
+        <value>Password</value>
+    </data>
+    <data name="Close" xml:space="preserve">
+        <value>Close</value>
+    </data>
+    <data name="Copy" xml:space="preserve">
+        <value>Copy</value>
+    </data>
+    <data name="Show" xml:space="preserve">
+        <value>Show</value>
+    </data>
+    <data name="PasswordGenerated" xml:space="preserve">
+        <value>Password generated!</value>
+    </data>
 </root>
