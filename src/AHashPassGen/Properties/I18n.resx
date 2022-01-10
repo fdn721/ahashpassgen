@@ -108,4 +108,16 @@
     <data name="PasswordGenerated" xml:space="preserve">
         <value>Password generated!</value>
     </data>
+    <data name="MasterPassword" xml:space="preserve">
+        <value>Master password</value>
+    </data>
+    <data name="PasswordConfirm" xml:space="preserve">
+        <value>Password confirm</value>
+    </data>
+    <data name="Error" xml:space="preserve">
+        <value>Error</value>
+    </data>
+    <data name="ThePasswordIsDifferentFromTheOneUsedPreviously" xml:space="preserve">
+        <value>The password is different from the one used previously</value>
+    </data>
 </root>

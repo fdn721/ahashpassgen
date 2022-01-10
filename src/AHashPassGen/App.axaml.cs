@@ -28,9 +28,10 @@ namespace AHashPassGen
         public override void OnFrameworkInitializationCompleted()
         {
             
-            Locator.CurrentMutable.Register( () => new EditRecordView(), typeof( IViewFor<EditRecordViewModel> ) );
-            Locator.CurrentMutable.Register( () => new AboutView(), typeof( IViewFor<AboutViewModel> ) );
-            Locator.CurrentMutable.Register( () => new PasswordView(), typeof( IViewFor<PasswordViewModel> ) );
+            Locator.CurrentMutable.Register( () => new EditRecordView(), typeof( IViewFor< EditRecordViewModel > ) );
+            Locator.CurrentMutable.Register( () => new AboutView(), typeof( IViewFor< AboutViewModel > ) );
+            Locator.CurrentMutable.Register( () => new PasswordView(), typeof( IViewFor< PasswordViewModel > ) );
+            Locator.CurrentMutable.Register( () => new MasterPasswordView(), typeof( IViewFor< MasterPasswordViewModel > ) );
             Locator.CurrentMutable.RegisterConstant( new PasswordService(), typeof( IPasswordService ) );
             Locator.CurrentMutable.RegisterConstant( new SettingsService< AppSettings >(), typeof( ISettingsService< AppSettings > ) );
             Locator.CurrentMutable.RegisterConstant( new DialogService(), typeof( IDialogService ) );

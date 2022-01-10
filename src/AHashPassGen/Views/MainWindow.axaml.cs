@@ -24,12 +24,16 @@ namespace AHashPassGen.Views
 
         private void InitializeComponent()
         {
-            this.WhenActivated(disposables => {   
-                if( ViewModel != null ) 
-                    ViewModel.CloseEvent += Close;
-            });
-            
             AvaloniaXamlLoader.Load(this);
+            
+            this.WhenActivated(disposables => {
+                if( ViewModel != null )
+                {
+                    ViewModel.CloseEvent += Close;
+                    ViewModel.Init();
+                }
+
+            });
         }
     }
 }

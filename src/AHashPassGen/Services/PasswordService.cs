@@ -16,13 +16,22 @@ public class PasswordService : IPasswordService
         BuildAlphabet();
     }
 
+    public string CalcHash( string value )
+    {
+        var hashAlgorithm = SHA512.Create();
+        var inputData = Encoding.UTF8.GetBytes( value );
+        var outputData = hashAlgorithm.ComputeHash( inputData );
+
+        return BitConverter.ToString( outputData ).Replace( "-", "" );
+    }
+
     public string Generate( Record record )
     {
         int charsCount = Convert.ToInt32( record.Alphabet );
         
         var inputData = Encoding.UTF8.GetBytes( $"{MasterPassword}{record.Site}{record.Login}" );
 
-        var hashAlgorithm = new SHA512Managed();
+        var hashAlgorithm = SHA512.Create(); // new SHA512Managed();
 
         for( var i = 0; i < record.StageCount; i++ )
             inputData = hashAlgorithm.ComputeHash( inputData );

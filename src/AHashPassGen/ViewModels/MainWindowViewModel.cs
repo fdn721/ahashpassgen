@@ -74,8 +74,26 @@ namespace AHashPassGen.ViewModels
                 //.Filter( x => true )
                 .Bind( out _filteredRecordList )
                 .Subscribe( /*_ => WordCount = $"({_wordListItems.Count})" */);
+
+
+        
         }
 
+         public async void Init()
+         {
+             var vm = new MasterPasswordViewModel( "1" );
+             var password = await _dialogService.Show< MasterPasswordViewModel, string >( vm );
+
+             if( string.IsNullOrEmpty( password ) )
+             {
+                 _forceClose = true;
+                 CloseEvent?.Invoke();
+                 return;
+             }
+
+             _passwordService.MasterPassword = password;
+         }
+         
          private async void AddHandler()
          {
              var vm = new EditRecordViewModel( null );

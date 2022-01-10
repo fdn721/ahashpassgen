@@ -224,5 +224,29 @@ namespace AHashPassGen.Properties {
                 return ResourceManager.GetString("PasswordGenerated", resourceCulture);
             }
         }
+        
+        public static string MasterPassword {
+            get {
+                return ResourceManager.GetString("MasterPassword", resourceCulture);
+            }
+        }
+        
+        public static string PasswordConfirm {
+            get {
+                return ResourceManager.GetString("PasswordConfirm", resourceCulture);
+            }
+        }
+        
+        public static string Error {
+            get {
+                return ResourceManager.GetString("Error", resourceCulture);
+            }
+        }
+        
+        public static string ThePasswordIsDifferentFromTheOneUsedPreviously {
+            get {
+                return ResourceManager.GetString("ThePasswordIsDifferentFromTheOneUsedPreviously", resourceCulture);
+            }
+        }
     }
 }

@@ -101,4 +101,16 @@
     <data name="PasswordGenerated" xml:space="preserve">
         <value>Пароль сгенерирован!</value>
     </data>
+    <data name="MasterPassword" xml:space="preserve">
+        <value>Мастер парорль</value>
+    </data>
+    <data name="PasswordConfirm" xml:space="preserve">
+        <value>Подтверждение пароля</value>
+    </data>
+    <data name="Error" xml:space="preserve">
+        <value>Ошибка</value>
+    </data>
+    <data name="ThePasswordIsDifferentFromTheOneUsedPreviously" xml:space="preserve">
+        <value>Пароль отличается от ранее используемого</value>
+    </data>
 </root>
