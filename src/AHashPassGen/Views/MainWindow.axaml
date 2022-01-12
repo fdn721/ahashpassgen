@@ -23,23 +23,32 @@
             </ia:EventTriggerBehavior>
     </i:Interaction.Behaviors>
     
+    <Window.Styles>
+        <Style Selector="TextBox.searchIcon[AcceptsReturn=False][IsReadOnly=False]">
+            <Setter Property="InnerLeftContent">
+                <Template>
+                    <Image Width="20" Height="20" Margin="5,0,0,0" Source="{SvgImage /Assets/search.svg}"/>
+                </Template>
+            </Setter>
+        </Style>
+    </Window.Styles>
+    
     <Window.DataTemplates>
         <DataTemplate DataType="{x:Type model:Record}">
             <StackPanel>
-                <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Vertical">
                     <!-- <c:SpellTextBlock Classes="h2" Text="{Binding Text }" /> -->
-                    <TextBlock Classes="h2" Text="{Binding Site }"/>
-                    <TextBlock Classes="h2" Text=" / "/>
-                    <TextBlock Classes="h2" Text="{Binding Login }"/>
+                    <TextBlock Classes="H2" Text="{Binding Site }"/>
+                    <TextBlock Classes="H2" Text="{Binding Login }"/>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Classes="h2" Text="{Binding Comment }"/>
-                </StackPanel>
+                <!--<StackPanel Orientation="Horizontal">
+                    <TextBlock Classes="H2" Text="{Binding Comment }"/>
+                </StackPanel>-->
             </StackPanel>
         </DataTemplate>
     </Window.DataTemplates>
     
-    <Grid RowDefinitions="Auto,*,Auto" ColumnDefinitions="*">
+    <Grid RowDefinitions="Auto, Auto,*,Auto" ColumnDefinitions="*">
         <DockPanel Grid.Row="0" Grid.Column="0">
             <Menu DockPanel.Dock="Top">
                 <MenuItem Header="{x:Static p:I18n.File}">
@@ -50,7 +59,8 @@
                 </MenuItem>
             </Menu>
         </DockPanel>
-        <Border Grid.Row="1" Grid.Column="0" Classes="Control" Padding="5" Margin="5">
+        <TextBox Grid.Row="1" Text="{Binding Filter}" Classes="searchIcon" Margin="5" ></TextBox>
+        <Border Grid.Row="2" Grid.Column="0" Classes="Control" Padding="5" Margin="5,0,5,5">
             <ListBox Name="RecordList" Items="{Binding RecordList}"  SelectedItem="{Binding SelectedRecord, Mode=TwoWay}">
                 <ListBox.ContextMenu>
                     <ContextMenu>

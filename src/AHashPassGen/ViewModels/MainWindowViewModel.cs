@@ -73,8 +73,10 @@ namespace AHashPassGen.ViewModels
             GenerateCommand = ReactiveCommand.Create< Record >( GenerateHandler, this.WhenAny( x => x.SelectedRecord, _ => SelectedRecord != null ) );
             
             _recordList.ToObservableChangeSet()
-                //.AutoRefreshOnObservable( _ => this.WhenAnyValue( x => x.Filter ) 
-                //.Filter( x => true )
+                .AutoRefreshOnObservable( _ => this.WhenAnyValue( x => x.Filter ) )
+                .Filter( x => x.Site.Contains( Filter, StringComparison.OrdinalIgnoreCase ) 
+                              || x.Login.Contains( Filter, StringComparison.OrdinalIgnoreCase )
+                              || x.Comment.Contains( Filter, StringComparison.OrdinalIgnoreCase ) )
                 .Bind( out _filteredRecordList )
                 .Subscribe( /*_ => WordCount = $"({_wordListItems.Count})" */);
         }
