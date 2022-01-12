@@ -1,5 +1,6 @@
 using System;
 using System.Reactive;
+using AHashPassGen.Properties;
 using Avalonia;
 using Avalonia.Input.Platform;
 using ReactiveUI;
@@ -12,20 +13,34 @@ public class PasswordViewModel : ReactiveObject
     public event Action? CloseEvent;
     
     public ReactiveCommand<Unit, Unit> ShowCommand { get; }
-    public ReactiveCommand<Unit, Unit> CopyCommand { get; }
+    public ReactiveCommand<Unit, Unit> CopySiteCommand { get; }
+    public ReactiveCommand<Unit, Unit> CopyLoginCommand { get; }
+    public ReactiveCommand<Unit, Unit> CopyPasswordCommand { get; }
     public ReactiveCommand<Unit, Unit> CloseCommand { get; }
+
+
+    public string SiteName => $"{I18n.Site}:";
+    public string LoginName => $"{I18n.Login}:";
+    public string PasswordName => $"{I18n.Password}:";
+    
+    [Reactive] public string Site { get; set; }
+    [Reactive] public string Login { get; set; }
     [Reactive] public string Password { get; set; }
     [Reactive] public bool VisibleShowButton { get; set; } = true;
 
     private readonly string _password;
 
-    public PasswordViewModel( string password )
+    public PasswordViewModel( string site, string login, string password )
     {
+        Site = site;
+        Login = login;
         _password = password;
         Password = "".PadLeft( _password.Length, '*' );
 
         ShowCommand = ReactiveCommand.Create( ShowHandler );
-        CopyCommand = ReactiveCommand.Create( CopyHandler );
+        CopySiteCommand = ReactiveCommand.Create( CopySiteHandler );
+        CopyLoginCommand = ReactiveCommand.Create( CopyLoginHandler );
+        CopyPasswordCommand = ReactiveCommand.Create( CopyPasswordHandler );
         CloseCommand = ReactiveCommand.Create( CloseHandler );
     }
 
@@ -34,7 +49,16 @@ public class PasswordViewModel : ReactiveObject
         Password = _password;
         VisibleShowButton = false;
     }
-    private void CopyHandler()
+    private void CopySiteHandler()
+    {
+        Application.Current?.Clipboard?.SetTextAsync( Site );
+    }
+    
+    private void CopyLoginHandler()
+    {
+        Application.Current?.Clipboard?.SetTextAsync( Login );
+    }
+    private void CopyPasswordHandler()
     {
         Application.Current?.Clipboard?.SetTextAsync( _password );
     }

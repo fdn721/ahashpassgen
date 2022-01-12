@@ -113,4 +113,10 @@
     <data name="ThePasswordIsDifferentFromTheOneUsedPreviously" xml:space="preserve">
         <value>Пароль отличается от ранее используемого</value>
     </data>
+    <data name="SaveError" xml:space="preserve">
+        <value>Ошибка сохранения</value>
+    </data>
+    <data name="LoadError" xml:space="preserve">
+        <value>Ошибка загрузки</value>
+    </data>
 </root>

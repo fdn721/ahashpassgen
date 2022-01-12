@@ -248,5 +248,17 @@ namespace AHashPassGen.Properties {
                 return ResourceManager.GetString("ThePasswordIsDifferentFromTheOneUsedPreviously", resourceCulture);
             }
         }
+        
+        public static string SaveError {
+            get {
+                return ResourceManager.GetString("SaveError", resourceCulture);
+            }
+        }
+        
+        public static string LoadError {
+            get {
+                return ResourceManager.GetString("LoadError", resourceCulture);
+            }
+        }
     }
 }

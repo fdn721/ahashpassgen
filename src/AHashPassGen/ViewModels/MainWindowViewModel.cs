@@ -45,20 +45,23 @@ namespace AHashPassGen.ViewModels
         private readonly IPasswordService _passwordService;
         private readonly IDialogService _dialogService;
         private readonly ISettingsService< AppSettings > _settingsService;
+        private readonly IStorageService _storageService;
         private readonly ObservableCollectionExtended<Record> _recordList = new ObservableCollectionExtended<Record>();
         private readonly ReadOnlyObservableCollection<Record> _filteredRecordList;
+        private RecordsFile _recordsFile;
         
          public MainWindowViewModel( IDialogService? dialogService = null, 
                                      IPasswordService? passwordService = null,
+                                     IStorageService? storageService = null,
                                      ISettingsService< AppSettings >? settingsService = null )
         {
             _dialogService = dialogService ?? Locator.Current.GetService< IDialogService >() ?? throw new ArgumentNullException( nameof( dialogService ) );
             _passwordService = passwordService ?? Locator.Current.GetService< IPasswordService >() ?? throw new ArgumentNullException( nameof( passwordService ) );
+            _storageService = storageService ?? Locator.Current.GetService< IStorageService >() ?? throw new ArgumentNullException( nameof( storageService ) );
             _settingsService = settingsService ?? Locator.Current.GetService< ISettingsService< AppSettings > >() ?? throw new ArgumentNullException( nameof( settingsService ) );
 
             _settingsService.Load();
             
-        
             ExitCommand = ReactiveCommand.Create< CancelEventArgs >( ExitHandler );
             AboutCommand = ReactiveCommand.Create( AboutHandler );
             
@@ -74,14 +77,20 @@ namespace AHashPassGen.ViewModels
                 //.Filter( x => true )
                 .Bind( out _filteredRecordList )
                 .Subscribe( /*_ => WordCount = $"({_wordListItems.Count})" */);
-
-
-        
         }
 
          public async void Init()
          {
-             var vm = new MasterPasswordViewModel( "1" );
+             try
+             {
+                 _recordsFile = _storageService.Load();
+             }
+             catch( Exception err )
+             {
+                 await _dialogService.Error( I18n.Error, $"{I18n.LoadError}!", err.ToString() );
+             }
+             
+             var vm = new MasterPasswordViewModel( _recordsFile.MasterPasswordHash );
              var password = await _dialogService.Show< MasterPasswordViewModel, string >( vm );
 
              if( string.IsNullOrEmpty( password ) )
@@ -91,7 +100,21 @@ namespace AHashPassGen.ViewModels
                  return;
              }
 
+             if( string.IsNullOrEmpty( _recordsFile.MasterPasswordHash ) )
+             {
+                 try
+                 {
+                     _recordsFile.MasterPasswordHash = _passwordService.CalcHash( password );
+                     _storageService.Save( _recordsFile );
+                 }
+                 catch( Exception err )
+                 {
+                     await _dialogService.Error( I18n.Error, $"{I18n.SaveError}!", err.ToString() );
+                 }
+             }
+
              _passwordService.MasterPassword = password;
+             _recordList.AddRange( _recordsFile.Records );
          }
          
          private async void AddHandler()
@@ -99,11 +122,13 @@ namespace AHashPassGen.ViewModels
              var vm = new EditRecordViewModel( null );
              var record = await _dialogService.Show<EditRecordViewModel, Record >( vm );
 
-             if( record != null )
-                 _recordList.Add( record );
+             if( record == null )
+                 return;
+             
+             _recordList.Add( record );
          }
         
-         
+        
          private async void EditHandler( Record? record )
          {
              if( record == null )
@@ -112,8 +137,10 @@ namespace AHashPassGen.ViewModels
              var vm = new EditRecordViewModel( record );
              var newRecord = await _dialogService.Show<EditRecordViewModel, Record >( vm );
 
-             if( newRecord != null )
-                 _recordList.Replace( record, newRecord );
+             if( newRecord == null )
+                 return;
+             
+             _recordList.Replace( record, newRecord );
          }
          
          private async void RemoveHandler( Record? record )
@@ -139,7 +166,7 @@ namespace AHashPassGen.ViewModels
              if( index <= 0 )
                  return;
                 
-             _recordList.Move( index, index - 1 );;
+             _recordList.Move( index, index - 1 );
          }
          
          private void DownHandler( Record? record )
@@ -162,7 +189,7 @@ namespace AHashPassGen.ViewModels
              
              var password = _passwordService.Generate( record );
 
-             var vm = new PasswordViewModel( password );
+             var vm = new PasswordViewModel( record.Site, record.Login, password );
 
              _dialogService.Show( vm );
 
@@ -181,7 +208,8 @@ namespace AHashPassGen.ViewModels
              if( result != MessageBoxResult.Yes )
                  return;
              
-
+             SaveRecords();
+             
              _forceClose = true;
              CloseEvent?.Invoke();
          }
@@ -189,6 +217,26 @@ namespace AHashPassGen.ViewModels
          private async void AboutHandler()
          {
              await _dialogService.Show( new AboutViewModel() );
+         }
+         
+         private void LoadRecords()
+         {
+            
+         }
+         
+         private void SaveRecords()
+         {
+             try
+             {
+
+                 _recordsFile.Records.Clear();
+                 _recordsFile.Records.AddRange( _recordList );
+                 _storageService.Save( _recordsFile );
+             }
+             catch( Exception err )
+             {
+                 _dialogService.Error( I18n.Error, $"{I18n.SaveError}!", err.ToString() );
+             }
          }
     }
 }

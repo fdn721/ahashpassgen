@@ -35,6 +35,7 @@ namespace AHashPassGen
             Locator.CurrentMutable.RegisterConstant( new PasswordService(), typeof( IPasswordService ) );
             Locator.CurrentMutable.RegisterConstant( new SettingsService< AppSettings >(), typeof( ISettingsService< AppSettings > ) );
             Locator.CurrentMutable.RegisterConstant( new DialogService(), typeof( IDialogService ) );
+            Locator.CurrentMutable.RegisterConstant( new StorageService(), typeof( IStorageService ) );
             
             if( ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop )
             {
