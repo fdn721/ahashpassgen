@@ -1,3 +1,4 @@
+using System.Drawing;
 using AHashPassGen.Models.Settings;
 using AHashPassGen.Services;
 using Avalonia;
@@ -8,6 +9,7 @@ using AHashPassGen.Views;
 using Avalonia.Controls;
 using Common.Services.Dialog;
 using Common.Services.Settings;
+using HarfBuzzSharp;
 using ReactiveUI;
 using Splat;
 
@@ -23,6 +25,8 @@ namespace AHashPassGen
         public override void Initialize()
         {
             AvaloniaXamlLoader.Load(this);
+            
+            
         }
 
         public override void OnFrameworkInitializationCompleted()
@@ -32,6 +36,7 @@ namespace AHashPassGen
             Locator.CurrentMutable.Register( () => new AboutView(), typeof( IViewFor< AboutViewModel > ) );
             Locator.CurrentMutable.Register( () => new PasswordView(), typeof( IViewFor< PasswordViewModel > ) );
             Locator.CurrentMutable.Register( () => new MasterPasswordView(), typeof( IViewFor< MasterPasswordViewModel > ) );
+            Locator.CurrentMutable.Register( () => new PropertiesView(), typeof( IViewFor< PropertiesViewModel > ) );
             Locator.CurrentMutable.RegisterConstant( new PasswordService(), typeof( IPasswordService ) );
             Locator.CurrentMutable.RegisterConstant( new SettingsService< AppSettings >(), typeof( ISettingsService< AppSettings > ) );
             Locator.CurrentMutable.RegisterConstant( new DialogService(), typeof( IDialogService ) );

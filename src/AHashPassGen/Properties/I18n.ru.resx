@@ -119,4 +119,19 @@
     <data name="LoadError" xml:space="preserve">
         <value>Ошибка загрузки</value>
     </data>
+    <data name="Properties" xml:space="preserve">
+        <value>Настройки</value>
+    </data>
+    <data name="EncryptRecords" xml:space="preserve">
+        <value>Шифровать записи</value>
+    </data>
+    <data name="Yes" xml:space="preserve">
+        <value>Да</value>
+    </data>
+    <data name="No" xml:space="preserve">
+        <value>Нет</value>
+    </data>
+    <data name="FontSize" xml:space="preserve">
+        <value>Размер шрифта</value>
+    </data>
 </root>

@@ -126,4 +126,19 @@
     <data name="LoadError" xml:space="preserve">
         <value>Load error</value>
     </data>
+    <data name="Properties" xml:space="preserve">
+        <value>Properties</value>
+    </data>
+    <data name="EncryptRecords" xml:space="preserve">
+        <value>Encrypt records</value>
+    </data>
+    <data name="Yes" xml:space="preserve">
+        <value>Yes</value>
+    </data>
+    <data name="No" xml:space="preserve">
+        <value>No</value>
+    </data>
+    <data name="FontSize" xml:space="preserve">
+        <value>Font size</value>
+    </data>
 </root>

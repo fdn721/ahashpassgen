@@ -52,6 +52,8 @@
         <DockPanel Grid.Row="0" Grid.Column="0">
             <Menu DockPanel.Dock="Top">
                 <MenuItem Header="{x:Static p:I18n.File}">
+                    <MenuItem Header="{x:Static p:I18n.Properties}" Command="{Binding PropertiesCommand}"/>
+                    <Separator/>
                     <MenuItem Header="{x:Static p:I18n.Exit}" Command="{Binding #MainWindow.CloseWindow}"/>
                 </MenuItem>
                 <MenuItem Header="{x:Static p:I18n.Help}">

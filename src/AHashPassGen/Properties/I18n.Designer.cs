@@ -260,5 +260,35 @@ namespace AHashPassGen.Properties {
                 return ResourceManager.GetString("LoadError", resourceCulture);
             }
         }
+        
+        public static string Properties {
+            get {
+                return ResourceManager.GetString("Properties", resourceCulture);
+            }
+        }
+        
+        public static string EncryptRecords {
+            get {
+                return ResourceManager.GetString("EncryptRecords", resourceCulture);
+            }
+        }
+        
+        public static string Yes {
+            get {
+                return ResourceManager.GetString("Yes", resourceCulture);
+            }
+        }
+        
+        public static string No {
+            get {
+                return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        public static string FontSize {
+            get {
+                return ResourceManager.GetString("FontSize", resourceCulture);
+            }
+        }
     }
 }

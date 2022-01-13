@@ -25,6 +25,7 @@ namespace AHashPassGen.ViewModels
        
         // ReSharper disable UnusedAutoPropertyAccessor.Global
         // ReSharper disable MemberCanBePrivate.Global
+        public ReactiveCommand< Unit, Unit > PropertiesCommand { get; }
         public ReactiveCommand< CancelEventArgs, Unit > ExitCommand { get; }
         public ReactiveCommand< Unit, Unit > AboutCommand { get; }
         public ReactiveCommand< Unit, Unit > AddCommand { get; }
@@ -62,6 +63,7 @@ namespace AHashPassGen.ViewModels
 
             _settingsService.Load();
             
+            PropertiesCommand = ReactiveCommand.Create( PropertiesHandler );
             ExitCommand = ReactiveCommand.Create< CancelEventArgs >( ExitHandler );
             AboutCommand = ReactiveCommand.Create( AboutHandler );
             
@@ -80,6 +82,8 @@ namespace AHashPassGen.ViewModels
                 .Bind( out _filteredRecordList )
                 .Subscribe( /*_ => WordCount = $"({_wordListItems.Count})" */);
         }
+
+        
 
          public async void Init()
          {
@@ -197,6 +201,11 @@ namespace AHashPassGen.ViewModels
 
          }
 
+         private async void PropertiesHandler()
+         {
+             await _dialogService.Show( new PropertiesViewModel() );
+         }
+         
          private async void ExitHandler( CancelEventArgs arg)
          {
              if( _forceClose )
