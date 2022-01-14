@@ -113,8 +113,8 @@
     <data name="ThePasswordIsDifferentFromTheOneUsedPreviously" xml:space="preserve">
         <value>Пароль отличается от ранее используемого</value>
     </data>
-    <data name="SaveError" xml:space="preserve">
-        <value>Ошибка сохранения</value>
+    <data name="SaveDataError" xml:space="preserve">
+        <value>Ошибка сохранения данных</value>
     </data>
     <data name="LoadError" xml:space="preserve">
         <value>Ошибка загрузки</value>
@@ -133,5 +133,8 @@
     </data>
     <data name="FontSize" xml:space="preserve">
         <value>Размер шрифта</value>
+    </data>
+    <data name="SaveSettingsError" xml:space="preserve">
+        <value>Ошибка сохранения настроек</value>
     </data>
 </root>

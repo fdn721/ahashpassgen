@@ -19,19 +19,17 @@ public class MasterPasswordViewModel : ReactiveObject
     [Reactive] public string PasswordConfirm { get; set; } = "";
     
     public event Action<string?>? CloseEvent;
-
-    private readonly string _masterHash;
+    
     private readonly IPasswordService _passwordService;
     private readonly IDialogService _dialogService;
 
-    public MasterPasswordViewModel( string masterHash, IPasswordService? passwordService = null, IDialogService? dialogService = null )
+    public MasterPasswordViewModel( string password, bool createMode, IDialogService? dialogService = null )
     {
-        _masterHash = masterHash;
-        _passwordService = passwordService ?? Locator.Current.GetService< IPasswordService >() ?? throw new ArgumentNullException( nameof( passwordService ) );
+        Password = password;
+        PasswordConfirm = password;
+        CreateMode = createMode;
         _dialogService = dialogService ?? Locator.Current.GetService< IDialogService >() ?? throw new ArgumentNullException( nameof( dialogService ) );
-
-        CreateMode = string.IsNullOrEmpty( _masterHash );
-
+        
         if( CreateMode )
         {
             OkCommand = ReactiveCommand.Create( OkHandler, this.WhenAnyValue( x => x.Password, y => y.PasswordConfirm,
@@ -52,16 +50,8 @@ public class MasterPasswordViewModel : ReactiveObject
             CloseEvent?.Invoke( Password );
             return;
         }
-
-
-        var masterHash = _passwordService.CalcHash( Password );
-        if( masterHash == _masterHash )
-        {
-            CloseEvent?.Invoke( Password );
-            return;
-        }
-
-        _dialogService.Error( I18n.Error, $"{I18n.ThePasswordIsDifferentFromTheOneUsedPreviously}!" );
+        
+        CloseEvent?.Invoke( Password );
     }
     
     private void CancelHandler()

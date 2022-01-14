@@ -58,6 +58,11 @@ public class SettingsService< T > : ISettingsService<T> where T : ISettings, new
         {
             lock( _sync )
             {
+                var dirPath = Path.GetDirectoryName( filePath );
+                
+                if( dirPath != null && !Directory.Exists( dirPath ) )
+                    Directory.CreateDirectory( dirPath );
+                
                 var json = JsonConvert.SerializeObject( Current, Formatting.Indented );
                 File.WriteAllText( filePath, json );
             }

@@ -8,11 +8,13 @@ using AHashPassGen.Models.Data;
 using AHashPassGen.Models.Settings;
 using AHashPassGen.Properties;
 using AHashPassGen.Services;
+using Avalonia;
 using Avalonia.MessageBox;
 using Common.Services.Dialog;
 using Common.Services.Settings;
 using DynamicData;
 using DynamicData.Binding;
+using Newtonsoft.Json;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using Splat;
@@ -39,6 +41,10 @@ namespace AHashPassGen.ViewModels
         // ReSharper restore MemberCanBePrivate.Global
         
         public ReadOnlyObservableCollection<Record> RecordList => _filteredRecordList;
+
+        [Reactive] public double WindowWidth { get; set; } = 400;
+        [Reactive] public double WindowHeight { get; set; } = 600;
+        
         [Reactive] public String Filter { get; set; } = "";
         [Reactive] public Record? SelectedRecord { get; set; }
         
@@ -55,14 +61,15 @@ namespace AHashPassGen.ViewModels
                                      IPasswordService? passwordService = null,
                                      IStorageService? storageService = null,
                                      ISettingsService< AppSettings >? settingsService = null )
-        {
+         {
             _dialogService = dialogService ?? Locator.Current.GetService< IDialogService >() ?? throw new ArgumentNullException( nameof( dialogService ) );
             _passwordService = passwordService ?? Locator.Current.GetService< IPasswordService >() ?? throw new ArgumentNullException( nameof( passwordService ) );
             _storageService = storageService ?? Locator.Current.GetService< IStorageService >() ?? throw new ArgumentNullException( nameof( storageService ) );
             _settingsService = settingsService ?? Locator.Current.GetService< ISettingsService< AppSettings > >() ?? throw new ArgumentNullException( nameof( settingsService ) );
 
-            _settingsService.Load();
+            ApplySettings();
             
+
             PropertiesCommand = ReactiveCommand.Create( PropertiesHandler );
             ExitCommand = ReactiveCommand.Create< CancelEventArgs >( ExitHandler );
             AboutCommand = ReactiveCommand.Create( AboutHandler );
@@ -82,45 +89,42 @@ namespace AHashPassGen.ViewModels
                 .Bind( out _filteredRecordList )
                 .Subscribe( /*_ => WordCount = $"({_wordListItems.Count})" */);
         }
-
-        
-
+         
          public async void Init()
          {
-             try
+             string password = "";
+             bool createMode = !_storageService.Exist;
+             for( ;; )
              {
-                 _recordsFile = _storageService.Load();
-             }
-             catch( Exception err )
-             {
-                 await _dialogService.Error( I18n.Error, $"{I18n.LoadError}!", err.ToString() );
-             }
-             
-             var vm = new MasterPasswordViewModel( _recordsFile.MasterPasswordHash );
-             var password = await _dialogService.Show< MasterPasswordViewModel, string >( vm );
+                 var vm = new MasterPasswordViewModel( password, createMode );
+                 password = await _dialogService.Show< MasterPasswordViewModel, string >( vm );
+                 
+                 if( string.IsNullOrEmpty( password ) )
+                 {
+                     _forceClose = true;
+                     CloseEvent?.Invoke();
+                     return;
+                 }
 
-             if( string.IsNullOrEmpty( password ) )
-             {
-                 _forceClose = true;
-                 CloseEvent?.Invoke();
-                 return;
-             }
-
-             if( string.IsNullOrEmpty( _recordsFile.MasterPasswordHash ) )
-             {
                  try
                  {
-                     _recordsFile.MasterPasswordHash = _passwordService.CalcHash( password );
-                     _storageService.Save( _recordsFile );
+                     _recordsFile = _storageService.Load( password );
+                     _passwordService.MasterPassword = password;
+                     _recordList.AddRange( _recordsFile.Records );
+                     break;
                  }
                  catch( Exception err )
                  {
-                     await _dialogService.Error( I18n.Error, $"{I18n.SaveError}!", err.ToString() );
+                     if( err is JsonSerializationException )
+                     {
+                         await _dialogService.Error( I18n.Error, $"{I18n.ThePasswordIsDifferentFromTheOneUsedPreviously}!" );
+                     }
+                     else
+                     {
+                         await _dialogService.Error( I18n.Error, $"{I18n.LoadError}!", err.ToString() );
+                     }
                  }
              }
-
-             _passwordService.MasterPassword = password;
-             _recordList.AddRange( _recordsFile.Records );
          }
          
          private async void AddHandler()
@@ -220,6 +224,7 @@ namespace AHashPassGen.ViewModels
                  return;
              
              SaveRecords();
+             StoreSettings();
              
              _forceClose = true;
              CloseEvent?.Invoke();
@@ -239,14 +244,37 @@ namespace AHashPassGen.ViewModels
          {
              try
              {
-
                  _recordsFile.Records.Clear();
                  _recordsFile.Records.AddRange( _recordList );
-                 _storageService.Save( _recordsFile );
+                 _storageService.Save( _recordsFile, _passwordService.MasterPassword );
              }
              catch( Exception err )
              {
-                 _dialogService.Error( I18n.Error, $"{I18n.SaveError}!", err.ToString() );
+                 _dialogService.Error( I18n.Error, $"{I18n.SaveDataError}!", err.ToString() );
+             }
+         }
+         
+         private void ApplySettings()
+         {
+             _settingsService.Load();
+
+             if( !_settingsService.Current.WindowSize.IsDefault )
+             {
+                 WindowWidth = _settingsService.Current.WindowSize.Width;
+                 WindowHeight = _settingsService.Current.WindowSize.Height;
+             }
+         }
+         
+         private void StoreSettings()
+         {
+             try
+             {
+                 _settingsService.Current.WindowSize = new Size( WindowWidth, WindowHeight );
+                 _settingsService.Save();
+             }
+             catch( Exception err )
+             {
+                 _dialogService.Error( I18n.Error, I18n.SaveDataError, err.ToString() );
              }
          }
     }

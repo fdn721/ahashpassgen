@@ -1,3 +1,4 @@
+using System;
 using System.Drawing;
 using AHashPassGen.Models.Settings;
 using AHashPassGen.Services;
@@ -17,31 +18,24 @@ namespace AHashPassGen
 {
     public class App : Application
     {
-        public static double FontSize  =>  GetFontSize();
-        public static double FontSizeH3  =>  GetFontSize() + 1;
-        public static double FontSizeH2  =>  GetFontSize() + 2;
-        public static double FontSizeH1  =>  GetFontSize() + 3;
+        public static double FontSize { get; set; }
+        public static double FontSizeH3  => FontSize + 1;
+        public static double FontSizeH2  => FontSize + 2;
+        public static double FontSizeH1  => FontSize + 3;
+        
         
         public override void Initialize()
         {
+            InitDI();
+            InitSettings();
+
             AvaloniaXamlLoader.Load(this);
-            
-            
         }
 
         public override void OnFrameworkInitializationCompleted()
         {
-            
-            Locator.CurrentMutable.Register( () => new EditRecordView(), typeof( IViewFor< EditRecordViewModel > ) );
-            Locator.CurrentMutable.Register( () => new AboutView(), typeof( IViewFor< AboutViewModel > ) );
-            Locator.CurrentMutable.Register( () => new PasswordView(), typeof( IViewFor< PasswordViewModel > ) );
-            Locator.CurrentMutable.Register( () => new MasterPasswordView(), typeof( IViewFor< MasterPasswordViewModel > ) );
-            Locator.CurrentMutable.Register( () => new PropertiesView(), typeof( IViewFor< PropertiesViewModel > ) );
-            Locator.CurrentMutable.RegisterConstant( new PasswordService(), typeof( IPasswordService ) );
-            Locator.CurrentMutable.RegisterConstant( new SettingsService< AppSettings >(), typeof( ISettingsService< AppSettings > ) );
-            Locator.CurrentMutable.RegisterConstant( new DialogService(), typeof( IDialogService ) );
-            Locator.CurrentMutable.RegisterConstant( new StorageService(), typeof( IStorageService ) );
-            
+         
+
             if( ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop )
             {
                 desktop.MainWindow = new MainWindow
@@ -52,18 +46,47 @@ namespace AHashPassGen
 
             base.OnFrameworkInitializationCompleted();
         }
-        
-        private static double GetFontSize()
+
+        private void InitDI()
         {
-            var textBlock = new TextBlock();
+            Locator.CurrentMutable.Register( () => new EditRecordView(), typeof( IViewFor< EditRecordViewModel > ) );
+            Locator.CurrentMutable.Register( () => new AboutView(), typeof( IViewFor< AboutViewModel > ) );
+            Locator.CurrentMutable.Register( () => new PasswordView(), typeof( IViewFor< PasswordViewModel > ) );
+            Locator.CurrentMutable.Register( () => new MasterPasswordView(), typeof( IViewFor< MasterPasswordViewModel > ) );
+            Locator.CurrentMutable.Register( () => new PropertiesView(), typeof( IViewFor< PropertiesViewModel > ) );
+            Locator.CurrentMutable.RegisterConstant( new PasswordService(), typeof( IPasswordService ) );
+            Locator.CurrentMutable.RegisterConstant( new SettingsService< AppSettings >(), typeof( ISettingsService< AppSettings > ) );
+            Locator.CurrentMutable.RegisterConstant( new DialogService(), typeof( IDialogService ) );
+            Locator.CurrentMutable.RegisterConstant( new StorageService(), typeof( IStorageService ) );
+        }
 
-            if( System.OperatingSystem.IsLinux() )
-                return 16;
-
-            if( System.OperatingSystem.IsWindows() )
-                return textBlock.FontSize;
+        private void InitSettings()
+        {
+            try
+            {
+                var settingsService = Locator.Current.GetService< ISettingsService< AppSettings > >();
+                if( settingsService != null )
+                {
+                    settingsService.Load();
+                    ApplyFontSize( settingsService.Current.FontSize );
+                }
+            }
+            catch( Exception err )
+            {
+                // TODO
+            }
+        }
+        
+        private void ApplyFontSize( double fontSize )
+        {
+            if( fontSize != 0 )
+            {
+                FontSize = fontSize;
+                return;
+            }
             
-            return textBlock.FontSize;
+            var textBlock = new TextBlock();
+            FontSize = textBlock.FontSize;
         }
 
     }

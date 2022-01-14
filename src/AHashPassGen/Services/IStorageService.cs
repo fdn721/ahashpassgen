@@ -4,6 +4,7 @@ namespace AHashPassGen.Services;
 
 public interface IStorageService
 {
-    RecordsFile Load();
-    void Save( RecordsFile file );
+    bool Exist { get; }
+    RecordsFile Load( string password );
+    void Save( RecordsFile file, string password );
 }

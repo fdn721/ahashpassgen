@@ -12,11 +12,9 @@ public class Record
     public AlphabetEnum Alphabet { get; set; } = AlphabetEnum.A64;
     public int Length { get; set; } = 16;
     public int StageCount { get; set; } = 100;
-
-
+    
     public void Validate()
     {
-        
     }
     
     public Record Clone()

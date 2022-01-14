@@ -249,9 +249,9 @@ namespace AHashPassGen.Properties {
             }
         }
         
-        public static string SaveError {
+        public static string SaveDataError {
             get {
-                return ResourceManager.GetString("SaveError", resourceCulture);
+                return ResourceManager.GetString("SaveDataError", resourceCulture);
             }
         }
         
@@ -288,6 +288,12 @@ namespace AHashPassGen.Properties {
         public static string FontSize {
             get {
                 return ResourceManager.GetString("FontSize", resourceCulture);
+            }
+        }
+        
+        public static string SaveSettingsError {
+            get {
+                return ResourceManager.GetString("SaveSettingsError", resourceCulture);
             }
         }
     }
