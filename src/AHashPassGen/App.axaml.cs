@@ -54,9 +54,10 @@ namespace AHashPassGen
             Locator.CurrentMutable.Register( () => new PasswordView(), typeof( IViewFor< PasswordViewModel > ) );
             Locator.CurrentMutable.Register( () => new MasterPasswordView(), typeof( IViewFor< MasterPasswordViewModel > ) );
             Locator.CurrentMutable.Register( () => new PropertiesView(), typeof( IViewFor< PropertiesViewModel > ) );
-            Locator.CurrentMutable.RegisterConstant( new PasswordService(), typeof( IPasswordService ) );
-            Locator.CurrentMutable.RegisterConstant( new SettingsService< AppSettings >(), typeof( ISettingsService< AppSettings > ) );
             Locator.CurrentMutable.RegisterConstant( new DialogService(), typeof( IDialogService ) );
+            Locator.CurrentMutable.RegisterConstant( new SettingsService< AppSettings >(), typeof( ISettingsService< AppSettings > ) );
+            Locator.CurrentMutable.RegisterConstant( new CryptService(), typeof( ICryptService ) );
+            Locator.CurrentMutable.RegisterConstant( new PasswordService(), typeof( IPasswordService ) );
             Locator.CurrentMutable.RegisterConstant( new StorageService(), typeof( IStorageService ) );
         }
 

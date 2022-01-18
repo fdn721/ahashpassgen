@@ -6,6 +6,7 @@ using System.Text;
 using System.Text.Unicode;
 using AHashPassGen.Models.Data;
 using Newtonsoft.Json;
+using Splat;
 
 namespace AHashPassGen.Services;
 
@@ -14,9 +15,11 @@ public class StorageService : IStorageService
     public bool Exist => IsExist();
 
    
+    private readonly ICryptService _cryptService;
     private readonly string _fileName = "records.json";
-    public StorageService()
+    public StorageService( ICryptService? cryptService = null )
     {
+        _cryptService =  cryptService ?? Locator.Current.GetService<ICryptService>() ?? throw new ArgumentNullException( nameof( cryptService ) );
     }
 
     public RecordsFile Load( string password )
@@ -30,13 +33,9 @@ public class StorageService : IStorageService
             using var dataStream = new MemoryStream();
             fileStream.CopyTo( dataStream );
             fileStream.Close();
-
+            
             var encryptedData = dataStream.ToArray();
-
-            using var decoder = Aes.Create();
-            decoder.Key = CalcHash( password );
-            var decryptedData = decoder.DecryptEcb( encryptedData, PaddingMode.Zeros );
-            var json = Encoding.UTF8.GetString( decryptedData );
+            var json = _cryptService.Decrypt( password, encryptedData );
 
             var recordsFile = JsonConvert.DeserializeObject<RecordsFile>( json );
             if( recordsFile == null )
@@ -60,11 +59,8 @@ public class StorageService : IStorageService
         try
         {
             var json = JsonConvert.SerializeObject( file, Formatting.Indented );
-            var decryptedData = Encoding.UTF8.GetBytes( json );
-                
-            using var decoder = Aes.Create();
-            decoder.Key = CalcHash( password );
-            var encryptedData = decoder.EncryptEcb( decryptedData, PaddingMode.Zeros );
+
+            var encryptedData = _cryptService.Encrypt( password, json );
 
             using var fileStream = File.Open( _fileName, FileMode.Create, FileAccess.Write, FileShare.None );
             fileStream.Write( encryptedData );

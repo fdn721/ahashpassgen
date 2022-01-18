@@ -207,7 +207,21 @@ namespace AHashPassGen.ViewModels
 
          private async void PropertiesHandler()
          {
-             await _dialogService.Show( new PropertiesViewModel() );
+             try
+             {
+                 var newSett = await _dialogService.Show<PropertiesViewModel, AppSettings>(
+                         new PropertiesViewModel( _settingsService.Current ) );
+
+                 if( !_settingsService.Current.Equals( newSett ) )
+                 {
+                     _settingsService.Current = newSett;
+                     _settingsService.Save();
+                 }
+             }
+             catch( Exception err )
+             {
+                 await _dialogService.Error( I18n.Error, I18n.SaveSettingsError, err.ToString() );
+             }
          }
          
          private async void ExitHandler( CancelEventArgs arg)

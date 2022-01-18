@@ -17,7 +17,7 @@ public class MasterPasswordViewModel : ReactiveObject
     [Reactive] public bool CreateMode { get; set; }
     [Reactive] public string Password { get; set; } = "";
     [Reactive] public string PasswordConfirm { get; set; } = "";
-    
+    public string PasswordWatermark => CreateMode ? I18n.Minimum8Сharacters : "";
     public event Action<string?>? CloseEvent;
     
     private readonly IPasswordService _passwordService;

@@ -144,4 +144,7 @@
     <data name="SaveSettingsError" xml:space="preserve">
         <value>Save settings error</value>
     </data>
+    <data name="Minimum8Сharacters" xml:space="preserve">
+        <value>Minimum 8 characters</value>
+    </data>
 </root>

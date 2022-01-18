@@ -296,5 +296,11 @@ namespace AHashPassGen.Properties {
                 return ResourceManager.GetString("SaveSettingsError", resourceCulture);
             }
         }
+        
+        public static string Minimum8Сharacters {
+            get {
+                return ResourceManager.GetString("Minimum8Сharacters", resourceCulture);
+            }
+        }
     }
 }

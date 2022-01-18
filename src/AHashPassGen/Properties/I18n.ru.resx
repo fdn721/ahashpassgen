@@ -137,4 +137,7 @@
     <data name="SaveSettingsError" xml:space="preserve">
         <value>Ошибка сохранения настроек</value>
     </data>
+    <data name="Minimum8Сharacters" xml:space="preserve">
+        <value>Минимум 8 символов</value>
+    </data>
 </root>

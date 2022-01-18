@@ -2,6 +2,7 @@ using System;
 using System.Security.Cryptography;
 using System.Text;
 using AHashPassGen.Models.Data;
+using Splat;
 
 namespace AHashPassGen.Services;
 
@@ -10,17 +11,19 @@ public class PasswordService : IPasswordService
     public string MasterPassword { get; set; } = "";
 
     private readonly byte[] _alphabet = new byte[74];
+    private readonly ICryptService _cryptService;
 
-    public PasswordService()
+    public PasswordService( ICryptService? cryptService = null )
     {
+        _cryptService =  cryptService ?? Locator.Current.GetService<ICryptService>() ?? throw new ArgumentNullException( nameof( cryptService ) );
+            
         BuildAlphabet();
     }
 
     public string CalcHash( string value )
     {
-        var hashAlgorithm = SHA512.Create();
         var inputData = Encoding.UTF8.GetBytes( value );
-        var outputData = hashAlgorithm.ComputeHash( inputData );
+        var outputData = _cryptService.Hash( inputData, 0, inputData.Length );
 
         return BitConverter.ToString( outputData ).Replace( "-", "" );
     }
@@ -31,10 +34,8 @@ public class PasswordService : IPasswordService
         
         var inputData = Encoding.UTF8.GetBytes( $"{MasterPassword}{record.Site}{record.Login}" );
 
-        var hashAlgorithm = SHA512.Create(); // new SHA512Managed();
-
         for( var i = 0; i < record.StageCount; i++ )
-            inputData = hashAlgorithm.ComputeHash( inputData );
+            inputData = _cryptService.Hash( inputData, 0, inputData.Length );
 
 
         for( var i = 0; i < inputData.Length; i++ )
