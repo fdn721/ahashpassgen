@@ -3,7 +3,10 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using Avalonia.ReactiveUI;
+using Avalonia.Svg.Skia;
 using ReactiveUI;
+using SkiaSharp;
+using Svg.Skia;
 
 namespace AHashPassGen.Views
 {
@@ -25,7 +28,7 @@ namespace AHashPassGen.Views
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
-            
+
             this.WhenActivated(disposables => {
                 if( ViewModel != null )
                 {

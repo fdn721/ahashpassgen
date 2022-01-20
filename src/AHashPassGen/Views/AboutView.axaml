@@ -23,7 +23,7 @@
     </Window.Styles>
     
     <Grid ColumnDefinitions="*,auto" RowDefinitions="Auto,Auto" Margin="5,10,5,5">
-        <Image Grid.Row="0" Grid.Column="0" Width="48" Height="48"  Margin="10 10 10 0" VerticalAlignment="Center" Source="/Assets/logo.png"/>
+        <Image Grid.Row="0" Grid.Column="0" Width="48" Height="48"  Margin="10 10 10 0" VerticalAlignment="Center" Source="{SvgImage /Assets/app.svg}"/>
         <Grid  Grid.Row="0" Grid.Column="1" RowDefinitions="Auto,Auto,Auto" HorizontalAlignment="Center" VerticalAlignment="Center">
             <TextBlock Classes="Header" HorizontalAlignment="Center" Margin="5" Text="{x:Static p:I18n.AHashPassGen}"></TextBlock>
             <TextBlock Classes="Version" Grid.Row="1" HorizontalAlignment="Center" Margin="5" Text="{Binding Version}"></TextBlock>

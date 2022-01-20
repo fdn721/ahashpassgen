@@ -11,7 +11,7 @@
         Width="{Binding WindowWidth, Mode=TwoWay}"        
         Height="{Binding WindowHeight, Mode=TwoWay}"
         x:Class="AHashPassGen.Views.MainWindow"
-        Icon="/Assets/logo.png"
+        Icon="/Assets/app_64.png"
         Title="{x:Static p:I18n.AHashPassGen}"
         Name="MainWindow">
 
