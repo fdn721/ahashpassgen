@@ -20,7 +20,6 @@ public class MasterPasswordViewModel : ReactiveObject
     public string PasswordWatermark => CreateMode ? I18n.Minimum8Сharacters : "";
     public event Action<string?>? CloseEvent;
     
-    private readonly IPasswordService _passwordService;
     private readonly IDialogService _dialogService;
 
     public MasterPasswordViewModel( string password, bool createMode, IDialogService? dialogService = null )

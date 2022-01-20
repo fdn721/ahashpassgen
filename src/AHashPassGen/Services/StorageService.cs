@@ -16,8 +16,8 @@ public class StorageService : IStorageService
 
    
     private readonly ICryptService _cryptService;
-    private readonly string _fileName = "records.json";
-    private readonly string _oldFileName = "records.json.old";
+    private readonly string _fileName = "records.data";
+    private readonly string _oldFileName = "records.data.old";
     public StorageService( ICryptService? cryptService = null )
     {
         _cryptService =  cryptService ?? Locator.Current.GetService<ICryptService>() ?? throw new ArgumentNullException( nameof( cryptService ) );
@@ -35,7 +35,7 @@ public class StorageService : IStorageService
                 var encryptedData = LoadFile( _fileName );
                 return Decode( password, encryptedData );
             }
-            catch( Exception err )
+            catch( Exception )
             {
                 if( !File.Exists( _oldFileName ) )
                     throw;
@@ -44,7 +44,7 @@ public class StorageService : IStorageService
                 return Decode( password, encryptedData );
             }
         }
-        catch( JsonSerializationException err )
+        catch( JsonSerializationException )
         {
             throw;
         }
@@ -123,7 +123,7 @@ public class StorageService : IStorageService
         {
             return File.Exists( _fileName );
         }
-        catch( Exception err )
+        catch( Exception )
         {
             return false;
         }

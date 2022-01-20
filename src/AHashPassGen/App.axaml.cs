@@ -70,7 +70,7 @@ namespace AHashPassGen
                 if( settingsService != null )
                     settingsService.Load();
             }
-            catch( Exception err )
+            catch( Exception )
             { }
             
             if( settingsService != null )

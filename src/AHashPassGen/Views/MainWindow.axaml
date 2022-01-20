@@ -13,6 +13,7 @@
         x:Class="AHashPassGen.Views.MainWindow"
         Icon="/Assets/app_64.png"
         Title="{x:Static p:I18n.AHashPassGen}"
+        WindowStartupLocation="CenterScreen"
         Name="MainWindow">
 
     <i:Interaction.Behaviors>
@@ -80,5 +81,4 @@
             </ListBox>
         </Border>
     </Grid>
-
 </Window>

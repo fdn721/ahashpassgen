@@ -350,3 +350,7 @@ MigrationBackup/
 .ionide/
 
 src/.idea/
+records.data
+records.data.old
+pub/win-x64
+pub/linux-x64

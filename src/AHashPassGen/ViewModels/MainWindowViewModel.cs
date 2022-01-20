@@ -55,9 +55,10 @@ namespace AHashPassGen.ViewModels
         private readonly IStorageService _storageService;
         private readonly ObservableCollectionExtended<Record> _recordList = new ObservableCollectionExtended<Record>();
         private readonly ReadOnlyObservableCollection<Record> _filteredRecordList;
-        private RecordsFile _recordsFile;
-        
-         public MainWindowViewModel( IDialogService? dialogService = null, 
+        private RecordsFile _recordsFile = new RecordsFile();
+        private bool _isDataChanged = false;
+
+        public MainWindowViewModel( IDialogService? dialogService = null, 
                                      IPasswordService? passwordService = null,
                                      IStorageService? storageService = null,
                                      ISettingsService< AppSettings >? settingsService = null )
@@ -94,6 +95,8 @@ namespace AHashPassGen.ViewModels
          {
              string password = "";
              bool createMode = !_storageService.Exist;
+             _isDataChanged = createMode;
+             
              for( ;; )
              {
                  var vm = new MasterPasswordViewModel( password, createMode );
@@ -134,7 +137,8 @@ namespace AHashPassGen.ViewModels
 
              if( record == null )
                  return;
-             
+
+             _isDataChanged = true;
              _recordList.Add( record );
          }
         
@@ -150,6 +154,7 @@ namespace AHashPassGen.ViewModels
              if( newRecord == null )
                  return;
              
+             _isDataChanged = true;
              _recordList.Replace( record, newRecord );
          }
          
@@ -163,6 +168,7 @@ namespace AHashPassGen.ViewModels
              if( result != MessageBoxResult.Yes )
                  return;
             
+             _isDataChanged = true;
              _recordList.Remove( record );
          }
          
@@ -176,6 +182,7 @@ namespace AHashPassGen.ViewModels
              if( index <= 0 )
                  return;
                 
+             _isDataChanged = true;
              _recordList.Move( index, index - 1 );
          }
          
@@ -189,6 +196,7 @@ namespace AHashPassGen.ViewModels
              if( index >=  ( _recordList.Count - 1 ) )
                  return;
                 
+             _isDataChanged = true;
              _recordList.Move( index, index + 1 );
          }
          
@@ -237,7 +245,9 @@ namespace AHashPassGen.ViewModels
              if( result != MessageBoxResult.Yes )
                  return;
              
-             SaveRecords();
+             if( _isDataChanged )
+                SaveRecords();
+             
              StoreSettings();
              
              _forceClose = true;
