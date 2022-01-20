@@ -1,5 +1,6 @@
 using System;
 using System.Drawing;
+using System.IO;
 using AHashPassGen.Models.Settings;
 using AHashPassGen.Services;
 using Avalonia;
@@ -27,6 +28,7 @@ namespace AHashPassGen
         public override void Initialize()
         {
             InitDI();
+            InitDir();
             InitSettings();
 
             AvaloniaXamlLoader.Load(this);
@@ -61,6 +63,19 @@ namespace AHashPassGen
             Locator.CurrentMutable.RegisterConstant( new StorageService(), typeof( IStorageService ) );
         }
 
+        private void InitDir()
+        {
+            try
+            {
+                var dirPath = AppContext.BaseDirectory;
+                if( !string.IsNullOrEmpty( dirPath ) )
+                    Directory.SetCurrentDirectory( dirPath );
+            }
+            catch( Exception )
+            {
+            }
+        }
+        
         private void InitSettings()
         {
             var settingsService = Locator.Current.GetService< ISettingsService< AppSettings > >();
