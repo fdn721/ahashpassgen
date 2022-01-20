@@ -63,19 +63,18 @@ namespace AHashPassGen
 
         private void InitSettings()
         {
+            var settingsService = Locator.Current.GetService< ISettingsService< AppSettings > >();
+            
             try
             {
-                var settingsService = Locator.Current.GetService< ISettingsService< AppSettings > >();
                 if( settingsService != null )
-                {
                     settingsService.Load();
-                    ApplyFontSize( settingsService.Current.FontSize );
-                }
             }
             catch( Exception err )
-            {
-                // TODO
-            }
+            { }
+            
+            if( settingsService != null )
+                ApplyFontSize( settingsService.Current.FontSize );
         }
         
         private void ApplyFontSize( double fontSize )

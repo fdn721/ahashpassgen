@@ -270,8 +270,6 @@ namespace AHashPassGen.ViewModels
          
          private void ApplySettings()
          {
-             _settingsService.Load();
-
              if( !_settingsService.Current.WindowSize.IsDefault )
              {
                  WindowWidth = _settingsService.Current.WindowSize.Width;

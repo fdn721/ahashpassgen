@@ -17,6 +17,7 @@ public class StorageService : IStorageService
    
     private readonly ICryptService _cryptService;
     private readonly string _fileName = "records.json";
+    private readonly string _oldFileName = "records.json.old";
     public StorageService( ICryptService? cryptService = null )
     {
         _cryptService =  cryptService ?? Locator.Current.GetService<ICryptService>() ?? throw new ArgumentNullException( nameof( cryptService ) );
@@ -28,21 +29,20 @@ public class StorageService : IStorageService
         {
             if( !File.Exists( _fileName ) )
                 return new RecordsFile();
-
-            using var fileStream = File.Open( _fileName, FileMode.Open, FileAccess.Read, FileShare.None );
-            using var dataStream = new MemoryStream();
-            fileStream.CopyTo( dataStream );
-            fileStream.Close();
             
-            var encryptedData = dataStream.ToArray();
-            var json = _cryptService.Decrypt( password, encryptedData );
-
-            var recordsFile = JsonConvert.DeserializeObject<RecordsFile>( json );
-            if( recordsFile == null )
-                throw new Exception( "Can't deserialize json." );
-
-            return recordsFile;
-
+            try
+            {
+                var encryptedData = LoadFile( _fileName );
+                return Decode( password, encryptedData );
+            }
+            catch( Exception err )
+            {
+                if( !File.Exists( _oldFileName ) )
+                    throw;
+               
+                var encryptedData = LoadFile( _oldFileName );
+                return Decode( password, encryptedData );
+            }
         }
         catch( JsonSerializationException err )
         {
@@ -54,22 +54,58 @@ public class StorageService : IStorageService
         }
     }
     
-    public void Save( RecordsFile file, string password )
+    public void Save( RecordsFile recordsFile, string password )
     {
         try
         {
-            var json = JsonConvert.SerializeObject( file, Formatting.Indented );
+            var encryptedData = Encode( password, recordsFile );
+            
+            if( File.Exists( _oldFileName ) )
+                File.Delete( _oldFileName );
+            
+            if( File.Exists( _fileName ) )
+                File.Move( _fileName, _oldFileName );
 
-            var encryptedData = _cryptService.Encrypt( password, json );
-
-            using var fileStream = File.Open( _fileName, FileMode.Create, FileAccess.Write, FileShare.None );
-            fileStream.Write( encryptedData );
-            fileStream.Close();
+            SaveFile( _fileName,  encryptedData );
         }
         catch( Exception err )
         {
             throw new Exception( $"Can't save file: {_fileName}", err );
         }
+    }
+
+    private byte[] LoadFile( string fileName )
+    {
+        using var fileStream = File.Open( _fileName, FileMode.Open, FileAccess.Read, FileShare.None );
+        using var dataStream = new MemoryStream();
+        fileStream.CopyTo( dataStream );
+        fileStream.Close();
+            
+       return dataStream.ToArray();
+    }
+    
+    private void SaveFile( string fileName, byte[] encryptedData )
+    {
+        using var fileStream = File.Open( _fileName, FileMode.Create, FileAccess.Write, FileShare.None );
+        fileStream.Write( encryptedData );
+        fileStream.Close();
+    }
+
+    private RecordsFile Decode( string password,  byte[] encryptedData )
+    {
+        var json = _cryptService.Decrypt( password, encryptedData );
+        
+        var recordsFile = JsonConvert.DeserializeObject<RecordsFile>( json );
+        if( recordsFile == null )
+            throw new Exception( "Can't deserialize json." );
+
+        return recordsFile;
+    }
+    
+    private byte[] Encode( string password,  RecordsFile  recordsFile )
+    {
+        var json = JsonConvert.SerializeObject( recordsFile, Formatting.Indented );
+        return _cryptService.Encrypt( password, json );
     }
     
     private byte[] CalcHash( string value )

@@ -9,9 +9,9 @@
    id="svg5"
    inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20, custom)"
    sodipodi:docname="app.svg"
-   inkscape:export-filename="/home/fdn/develop/my/ahashpassgen.git/src/AHashPassGen/Assets/app.png"
-   inkscape:export-xdpi="96"
-   inkscape:export-ydpi="96"
+   inkscape:export-filename="/home/fdn/develop/my/ahashpassgen.git/src/AHashPassGen/Assets/app_64.png"
+   inkscape:export-xdpi="192.00002"
+   inkscape:export-ydpi="192.00002"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -30,7 +30,7 @@
      width="32px"
      inkscape:zoom="17.94637"
      inkscape:cx="12.955266"
-     inkscape:cy="14.8498"
+     inkscape:cy="14.905521"
      inkscape:window-width="1855"
      inkscape:window-height="1043"
      inkscape:window-x="0"
@@ -48,84 +48,87 @@
      inkscape:groupmode="layer"
      id="layer1">
     <rect
-       style="fill:#008080;stroke:#000000;stroke-width:0.248047;stroke-opacity:1"
+       style="fill:#008080;stroke:none;stroke-width:0.248047;stroke-opacity:1"
        id="rect934"
        width="7.937499"
        height="7.937499"
        x="0.26458332"
        y="0.26458332"
        ry="1.2402341" />
-    <g
-       id="g1201"
-       transform="rotate(7.5,4.233333,4.2146231)">
-      <rect
-         style="fill:#ffcc00;stroke:#000000;stroke-width:0.189743;stroke-opacity:1"
-         id="rect5010-6-7"
-         width="1.5874996"
-         height="1.5874997"
-         x="3.4395831"
-         y="3.7041664"
-         ry="0" />
-      <rect
-         style="fill:#00d455;stroke:#000000;stroke-width:0.189743;stroke-opacity:1"
-         id="rect5010-6-5"
-         width="1.5874996"
-         height="1.5874997"
-         x="5.8208327"
-         y="3.7041667"
-         ry="0" />
-      <rect
-         style="fill:#00d455;stroke:#000000;stroke-width:0.189743;stroke-opacity:1"
-         id="rect5010-6-35"
-         width="1.5874996"
-         height="1.5874997"
-         x="5.8208332"
-         y="5.8208327"
-         ry="0" />
-      <rect
-         style="fill:#ffcc00;stroke:#000000;stroke-width:0.189743;stroke-opacity:1"
-         id="rect5010-6-6"
-         width="1.5874996"
-         height="1.5874997"
-         x="3.4395833"
-         y="5.8208332"
-         ry="0" />
-      <rect
-         style="fill:#ff0000;stroke:#000000;stroke-width:0.189743;stroke-opacity:1"
-         id="rect5010-6-3"
-         width="1.5874996"
-         height="1.5874997"
-         x="1.0583333"
-         y="3.7041667"
-         ry="0" />
-      <rect
-         style="fill:#ff0000;stroke:#000000;stroke-width:0.189743;stroke-opacity:1"
-         id="rect5010-6"
-         width="1.5874996"
-         height="1.5874997"
-         x="1.0583333"
-         y="5.8208332"
-         ry="0" />
-      <rect
-         style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.264583;stroke-opacity:1"
-         id="rect958"
-         width="6.3499994"
-         height="1.8520832"
-         x="1.0583333"
-         y="1.0583333"
-         ry="0" />
-      <text
-         xml:space="preserve"
-         style="font-size:2.58271px;line-height:1.25;font-family:sans-serif;stroke-width:0.215225"
-         x="1.5975502"
-         y="3.3724949"
-         id="text3196"
-         transform="scale(1.0450484,0.95689349)"><tspan
-           sodipodi:role="line"
-           id="tspan3194"
-           style="stroke-width:0.215225"
-           x="1.5975502"
-           y="3.3724949">***</tspan></text>
-    </g>
+    <rect
+       style="fill:#ffcc00;stroke:#000000;stroke-width:0.189743;stroke-opacity:1"
+       id="rect5010-6-7"
+       width="1.5874996"
+       height="1.5874997"
+       x="3.953485"
+       y="3.1155488"
+       ry="0"
+       transform="rotate(7.5)" />
+    <rect
+       style="fill:#ff0000;stroke:#000000;stroke-width:0.189743;stroke-opacity:1;fill-opacity:1"
+       id="rect5010-6-5"
+       width="1.5874996"
+       height="1.5874997"
+       x="6.3347349"
+       y="3.1155491"
+       ry="0"
+       transform="rotate(7.5)" />
+    <rect
+       style="fill:#ff0000;stroke:#000000;stroke-width:0.189743;stroke-opacity:1;fill-opacity:1"
+       id="rect5010-6-35"
+       width="1.5874996"
+       height="1.5874997"
+       x="6.3347354"
+       y="5.2322154"
+       ry="0"
+       transform="rotate(7.5)" />
+    <rect
+       style="fill:#ffcc00;stroke:#000000;stroke-width:0.189743;stroke-opacity:1"
+       id="rect5010-6-6"
+       width="1.5874996"
+       height="1.5874997"
+       x="3.9534853"
+       y="5.2322159"
+       ry="0"
+       transform="rotate(7.5)" />
+    <rect
+       style="fill:#00d455;stroke:#000000;stroke-width:0.189743;stroke-opacity:1;fill-opacity:1"
+       id="rect5010-6-3"
+       width="1.5874996"
+       height="1.5874997"
+       x="1.5722352"
+       y="3.1155491"
+       ry="0"
+       transform="rotate(7.5)" />
+    <rect
+       style="fill:#00d455;stroke:#000000;stroke-width:0.189743;stroke-opacity:1;fill-opacity:1"
+       id="rect5010-6"
+       width="1.5874996"
+       height="1.5874997"
+       x="1.5722352"
+       y="5.2322159"
+       ry="0"
+       transform="rotate(7.5)" />
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.264583;stroke-opacity:1"
+       id="rect958"
+       width="6.3499994"
+       height="1.8520832"
+       x="1.5722352"
+       y="0.46971574"
+       ry="0"
+       transform="rotate(7.5)" />
+    <text
+       xml:space="preserve"
+       style="font-size:2.58271px;line-height:1.25;font-family:sans-serif;stroke-width:0.215225"
+       x="2.0892997"
+       y="2.7573612"
+       id="text3196"
+       transform="matrix(1.0361079,0.13640619,-0.12489966,0.94870711,0,0)"><tspan
+         sodipodi:role="line"
+         id="tspan3194"
+         style="stroke-width:0.215225"
+         x="2.0892997"
+         y="2.7573612">***</tspan></text>
   </g>
 </svg>
