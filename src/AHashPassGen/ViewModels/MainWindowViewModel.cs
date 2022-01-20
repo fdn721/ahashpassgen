@@ -287,7 +287,7 @@ namespace AHashPassGen.ViewModels
              }
          }
          
-         private void StoreSettings()
+         private async void StoreSettings()
          {
              try
              {
@@ -296,7 +296,7 @@ namespace AHashPassGen.ViewModels
              }
              catch( Exception err )
              {
-                 _dialogService.Error( I18n.Error, I18n.SaveDataError, err.ToString() );
+                 await _dialogService.Error( I18n.Error, I18n.SaveDataError, err.ToString() );
              }
          }
     }

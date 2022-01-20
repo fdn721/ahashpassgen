@@ -21,6 +21,17 @@ namespace AHashPassGen.Views
             Activated += ( sender, args ) =>
             {
                 // TODO workaround to fix startup position
+              
+            };
+        }
+
+        private void InitializeComponent()
+        {
+            this.WhenActivated( disposables =>
+            {
+                if( ViewModel != null )
+                    ViewModel.CloseEvent += Close;
+                
                 if( _once && OperatingSystem.IsLinux() )
                 {
                     _once = false;
@@ -31,15 +42,6 @@ namespace AHashPassGen.Views
                             SetWindowStartupLocation( mainWindow.PlatformImpl );
                     }
                 }
-            };
-        }
-
-        private void InitializeComponent()
-        {
-            this.WhenActivated( disposables =>
-            {
-                if( ViewModel != null )
-                    ViewModel.CloseEvent += Close;
             });
             
             AvaloniaXamlLoader.Load(this);

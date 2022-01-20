@@ -20,17 +20,6 @@ public class PropertiesView :  ReactiveWindow< PropertiesViewModel >
         
         Activated += ( sender, args ) =>
         {
-            // TODO workaround to fix startup position
-            if( _once && OperatingSystem.IsLinux() )
-            {
-                _once = false;
-                if( Application.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime appLifeTime )
-                {
-                    var mainWindow = appLifeTime.MainWindow;
-                    if( mainWindow != null )
-                        SetWindowStartupLocation( mainWindow.PlatformImpl );
-                }
-            }
         };
 #if DEBUG
         this.AttachDevTools();
@@ -43,6 +32,18 @@ public class PropertiesView :  ReactiveWindow< PropertiesViewModel >
         {
             if( ViewModel != null )
                 ViewModel.CloseEvent += Close;
+            
+            // TODO workaround to fix startup position
+            if( _once && OperatingSystem.IsLinux() )
+            {
+                _once = false;
+                if( Application.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime appLifeTime )
+                {
+                    var mainWindow = appLifeTime.MainWindow;
+                    if( mainWindow != null )
+                        SetWindowStartupLocation( mainWindow.PlatformImpl );
+                }
+            }
         });
 
         

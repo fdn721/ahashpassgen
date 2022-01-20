@@ -20,17 +20,6 @@ namespace AHashPassGen.Views
             
             Activated += ( sender, args ) =>
             {
-                // TODO workaround to fix startup position
-                if( _once && OperatingSystem.IsLinux() )
-                {
-                    _once = false;
-                    if( Application.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime appLifeTime )
-                    {
-                        var mainWindow = appLifeTime.MainWindow;
-                        if( mainWindow != null )
-                            SetWindowStartupLocation( mainWindow.PlatformImpl );
-                    }
-                }
             };
             
 #if DEBUG
@@ -44,6 +33,18 @@ namespace AHashPassGen.Views
             {
                 if( ViewModel != null )
                     ViewModel.CloseEvent += Close;
+                
+                // TODO workaround to fix startup position
+                if( _once && OperatingSystem.IsLinux() )
+                {
+                    _once = false;
+                    if( Application.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime appLifeTime )
+                    {
+                        var mainWindow = appLifeTime.MainWindow;
+                        if( mainWindow != null )
+                            SetWindowStartupLocation( mainWindow.PlatformImpl );
+                    }
+                }
             });
             
             AvaloniaXamlLoader.Load(this);
