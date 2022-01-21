@@ -9,7 +9,8 @@ public class AppSettings : ISettings
 {
     public int Version { get; set; } = 1;
     
-    public Size WindowSize { get; set; } = new ( 0, 0 );
+    public double WindowWidth { get; set; } = 0;
+    public double WindowHeight { get; set; } = 0;
 
     public double FontSize { get; set; } = 0;
     
@@ -24,7 +25,8 @@ public class AppSettings : ISettings
     {
         var sett = new AppSettings();
 
-        sett.WindowSize = new Size( WindowSize.Width, WindowSize.Height );
+        sett.WindowWidth = WindowWidth;
+        sett.WindowHeight = WindowHeight;
         sett.FontSize = FontSize;
 
         return sett;

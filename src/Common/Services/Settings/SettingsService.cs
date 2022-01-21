@@ -64,10 +64,16 @@ public class SettingsService< T > : ISettingsService<T> where T : ISettings, new
                     Directory.CreateDirectory( dirPath );
                 
                 var json = JsonConvert.SerializeObject( Current, Formatting.Indented );
+
+                // TODO workaround
+                if( json == "null" )
+                    throw new Exception( "JSON content is null!" );
+                
                 
                 using Stream stream = File.Open( filePath, FileMode.Create, FileAccess.Write, FileShare.None );
                 using TextWriter textWriter = new StreamWriter(stream);
                 textWriter.Write( json );
+                stream.Flush();
             }
         }
         catch( Exception err )

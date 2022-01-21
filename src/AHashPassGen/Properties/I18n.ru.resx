@@ -140,4 +140,7 @@
     <data name="Minimum8Сharacters" xml:space="preserve">
         <value>Минимум 8 символов</value>
     </data>
+    <data name="Default" xml:space="preserve">
+        <value>По умолчанию</value>
+    </data>
 </root>

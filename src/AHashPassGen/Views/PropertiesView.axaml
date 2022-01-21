@@ -17,7 +17,19 @@
     
     <Grid RowDefinitions="Auto,Auto,Auto,Auto,*,Auto" ColumnDefinitions="Auto,*" Margin="10">
         <TextBlock Grid.Row="0" Grid.Column="0" Margin="0, 5, 0, 0" Text="{x:Static p:I18n.FontSize}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-        <NumericUpDown Grid.Row="0" Grid.Column="1" Margin="10, 5, 0, 0" Value="{Binding FontSize}" Minimum="8" Maximum="32" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
+        <ComboBox Grid.Row="0" Grid.Column="1" Margin="10, 5, 5, 0"  SelectedIndex="{Binding FontSize}" HorizontalAlignment="Stretch">
+            <ComboBoxItem Content="{x:Static p:I18n.Default}"></ComboBoxItem>
+            <ComboBoxItem Content="8"></ComboBoxItem>
+            <ComboBoxItem Content="9"></ComboBoxItem>
+            <ComboBoxItem Content="10"></ComboBoxItem>
+            <ComboBoxItem Content="11"></ComboBoxItem>
+            <ComboBoxItem Content="12"></ComboBoxItem>
+            <ComboBoxItem Content="13"></ComboBoxItem>
+            <ComboBoxItem Content="14"></ComboBoxItem> 
+            <ComboBoxItem Content="15"></ComboBoxItem>
+            <ComboBoxItem Content="16"></ComboBoxItem>
+        </ComboBox>
+        <!--<NumericUpDown Grid.Row="0" Grid.Column="1" Margin="10, 5, 0, 0" Value="{Binding FontSize}" Minimum="8" Maximum="32" HorizontalAlignment="Stretch" VerticalAlignment="Center" />-->
         <StackPanel Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" Margin="0,10,0,0" HorizontalAlignment="Right" VerticalAlignment="Center">
             <Button Content="{x:Static p:I18n.OK}" Margin="0,0,0,0" Command="{Binding ApplyCommand}" ></Button>
             <Button Content="{x:Static p:I18n.Cancel}" Margin="5,0,0,0" Command="{Binding CloseCommand}"></Button>

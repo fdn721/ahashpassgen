@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Reactive;
 using System.Text;
+using System.Threading.Tasks;
 using AHashPassGen.Models.Data;
 using AHashPassGen.Models.Settings;
 using AHashPassGen.Properties;
@@ -248,7 +249,7 @@ namespace AHashPassGen.ViewModels
              if( _isDataChanged )
                 SaveRecords();
              
-             StoreSettings();
+             await StoreSettings();
              
              _forceClose = true;
              CloseEvent?.Invoke();
@@ -280,18 +281,20 @@ namespace AHashPassGen.ViewModels
          
          private void ApplySettings()
          {
-             if( !_settingsService.Current.WindowSize.IsDefault )
+             if( _settingsService.Current.WindowWidth != 0 
+                 && _settingsService.Current.WindowHeight != 0 )
              {
-                 WindowWidth = _settingsService.Current.WindowSize.Width;
-                 WindowHeight = _settingsService.Current.WindowSize.Height;
+                 WindowWidth = _settingsService.Current.WindowWidth;
+                 WindowHeight = _settingsService.Current.WindowHeight;
              }
          }
          
-         private async void StoreSettings()
+         private async Task StoreSettings()
          {
              try
              {
-                 _settingsService.Current.WindowSize = new Size( WindowWidth, WindowHeight );
+                 _settingsService.Current.WindowWidth = WindowWidth;
+                 _settingsService.Current.WindowHeight = WindowHeight;
                  _settingsService.Save();
              }
              catch( Exception err )

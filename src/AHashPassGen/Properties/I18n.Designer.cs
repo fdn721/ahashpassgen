@@ -302,5 +302,11 @@ namespace AHashPassGen.Properties {
                 return ResourceManager.GetString("Minimum8Сharacters", resourceCulture);
             }
         }
+        
+        public static string Default {
+            get {
+                return ResourceManager.GetString("Default", resourceCulture);
+            }
+        }
     }
 }

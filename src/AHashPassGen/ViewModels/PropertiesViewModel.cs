@@ -21,7 +21,7 @@ public class PropertiesViewModel : ReactiveObject
     {
         _settings = settings.Clone();
 
-        FontSize = ( int )_settings.FontSize;
+        FontSize = _settings.FontSize == 0  ? 0 : ( int ) _settings.FontSize - 7;
         
         ApplyCommand = ReactiveCommand.Create( ApplyHandler/*,
             this.WhenAnyValue( x => x.Site, y => y.Login,
@@ -32,7 +32,7 @@ public class PropertiesViewModel : ReactiveObject
 
     private void ApplyHandler()
     {
-        _settings.FontSize = FontSize;
+        _settings.FontSize = FontSize == 0 ? 0 : FontSize + 7;
         CloseEvent?.Invoke( _settings );
     }
     

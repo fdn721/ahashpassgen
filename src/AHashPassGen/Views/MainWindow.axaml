@@ -8,6 +8,8 @@
         xmlns:model="clr-namespace:AHashPassGen.Models.Data"
         xmlns:p="clr-namespace:AHashPassGen.Properties"
         mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="660"
+        MinWidth="100"
+        MinHeight="100"
         Width="{Binding WindowWidth, Mode=TwoWay}"        
         Height="{Binding WindowHeight, Mode=TwoWay}"
         x:Class="AHashPassGen.Views.MainWindow"
