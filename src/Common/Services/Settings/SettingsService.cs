@@ -1,14 +1,14 @@
 using System;
 using System.IO;
-using Newtonsoft.Json;
 using System.Diagnostics;
+using System.Text.Json;
 using Common.Properies;
 
 namespace Common.Services.Settings;
 
 public class SettingsService< T > : ISettingsService<T> where T : ISettings, new()
 {
-    public T Current { get; set; } = new T();
+    public T Current { get; protected set; } = new T();
     
     public object Sync => _sync;
     public string ConfigName { get; set; } = "settings";
@@ -34,7 +34,7 @@ public class SettingsService< T > : ISettingsService<T> where T : ISettings, new
                 using StreamReader r = new StreamReader( filePath );
                 var json = r.ReadToEnd();
 
-                var settings = JsonConvert.DeserializeObject<T>( json );
+                var settings = JsonSerializer.Deserialize<T>( json );
                 if( settings == null )
                     throw new Exception( $"{I18n.CantDeserializeSettingsFile}: {filePath}" );
 
@@ -63,13 +63,8 @@ public class SettingsService< T > : ISettingsService<T> where T : ISettings, new
                 if( dirPath != null && !Directory.Exists( dirPath ) )
                     Directory.CreateDirectory( dirPath );
                 
-                var json = JsonConvert.SerializeObject( Current, Formatting.Indented );
+                var json = JsonSerializer.Serialize( Current,  new JsonSerializerOptions{ WriteIndented = true } );
 
-                // TODO workaround
-                if( json == "null" )
-                    throw new Exception( "JSON content is null!" );
-                
-                
                 using Stream stream = File.Open( filePath, FileMode.Create, FileAccess.Write, FileShare.None );
                 using TextWriter textWriter = new StreamWriter(stream);
                 textWriter.Write( json );

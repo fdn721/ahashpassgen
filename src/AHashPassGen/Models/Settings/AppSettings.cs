@@ -1,7 +1,6 @@
 using System;
 using Avalonia;
 using Common.Services.Settings;
-using Newtonsoft.Json;
 
 namespace AHashPassGen.Models.Settings;
 
@@ -21,6 +20,16 @@ public class AppSettings : ISettings
         
     }
 
+    public void Update( AppSettings sett )
+    {
+        if( sett == null )
+            throw new ArgumentNullException( nameof( sett ) );
+        
+        WindowWidth = sett.WindowWidth;
+        WindowHeight = sett.WindowHeight;
+        FontSize = sett.FontSize;
+    }
+    
     public AppSettings Clone()
     {
         var sett = new AppSettings();

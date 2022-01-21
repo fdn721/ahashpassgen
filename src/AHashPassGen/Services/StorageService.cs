@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.Json;
 using System.Text.Unicode;
 using AHashPassGen.Models.Data;
-using Newtonsoft.Json;
 using Splat;
 
 namespace AHashPassGen.Services;
@@ -44,7 +44,7 @@ public class StorageService : IStorageService
                 return Decode( password, encryptedData );
             }
         }
-        catch( JsonSerializationException )
+        catch( JsonException )
         {
             throw;
         }
@@ -95,7 +95,7 @@ public class StorageService : IStorageService
     {
         var json = _cryptService.Decrypt( password, encryptedData );
         
-        var recordsFile = JsonConvert.DeserializeObject<RecordsFile>( json );
+        var recordsFile = JsonSerializer.Deserialize<RecordsFile>( json );
         if( recordsFile == null )
             throw new Exception( "Can't deserialize json." );
 
@@ -104,7 +104,7 @@ public class StorageService : IStorageService
     
     private byte[] Encode( string password,  RecordsFile  recordsFile )
     {
-        var json = JsonConvert.SerializeObject( recordsFile, Formatting.Indented );
+        var json = JsonSerializer.Serialize( recordsFile, new JsonSerializerOptions{ WriteIndented = true } );
         return _cryptService.Encrypt( password, json );
     }
     

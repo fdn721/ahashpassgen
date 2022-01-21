@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Reactive;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using AHashPassGen.Models.Data;
 using AHashPassGen.Models.Settings;
@@ -15,7 +16,6 @@ using Common.Services.Dialog;
 using Common.Services.Settings;
 using DynamicData;
 using DynamicData.Binding;
-using Newtonsoft.Json;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using Splat;
@@ -119,7 +119,7 @@ namespace AHashPassGen.ViewModels
                  }
                  catch( Exception err )
                  {
-                     if( err is JsonSerializationException )
+                     if( err is JsonException )
                      {
                          await _dialogService.Error( I18n.Error, $"{I18n.ThePasswordIsDifferentFromTheOneUsedPreviously}!" );
                      }
@@ -221,9 +221,12 @@ namespace AHashPassGen.ViewModels
                  var newSett = await _dialogService.Show<PropertiesViewModel, AppSettings>(
                          new PropertiesViewModel( _settingsService.Current ) );
 
-                 if( !_settingsService.Current.Equals( newSett ) )
+                 if( newSett == null )
+                     return;
+
+                 if( _settingsService.Current.Equals( newSett ) )
                  {
-                     _settingsService.Current = newSett;
+                     _settingsService.Current.Update( newSett );
                      _settingsService.Save();
                  }
              }
