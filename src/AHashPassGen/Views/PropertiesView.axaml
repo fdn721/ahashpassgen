@@ -28,6 +28,10 @@
             <ComboBoxItem Content="14"></ComboBoxItem> 
             <ComboBoxItem Content="15"></ComboBoxItem>
             <ComboBoxItem Content="16"></ComboBoxItem>
+            <ComboBoxItem Content="17"></ComboBoxItem>
+            <ComboBoxItem Content="18"></ComboBoxItem>
+            <ComboBoxItem Content="19"></ComboBoxItem>
+            <ComboBoxItem Content="20"></ComboBoxItem>
         </ComboBox>
         <!--<NumericUpDown Grid.Row="0" Grid.Column="1" Margin="10, 5, 0, 0" Value="{Binding FontSize}" Minimum="8" Maximum="32" HorizontalAlignment="Stretch" VerticalAlignment="Center" />-->
         <StackPanel Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" Margin="0,10,0,0" HorizontalAlignment="Right" VerticalAlignment="Center">
