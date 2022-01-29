@@ -224,7 +224,7 @@ namespace AHashPassGen.ViewModels
                  if( newSett == null )
                      return;
 
-                 if( _settingsService.Current.Equals( newSett ) )
+                 if( !_settingsService.Current.Equals( newSett ) )
                  {
                      _settingsService.Current.Update( newSett );
                      _settingsService.Save();

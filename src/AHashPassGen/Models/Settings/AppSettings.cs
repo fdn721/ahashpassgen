@@ -40,4 +40,11 @@ public class AppSettings : ISettings
 
         return sett;
     }
+    
+    public bool Equals( AppSettings value)
+    {
+        return value.WindowWidth == WindowWidth &&
+               value.WindowHeight == WindowHeight &&
+               value.FontSize == FontSize;
+    }
 }
